@@ -20,8 +20,7 @@ public class MainApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Configurations config = new Configurations();
         config.ReadConfig();
-        config.play("C:\\Users\\ajose\\Desktop\\Tetris01_02_03(aula teorica)\\src\\tetris\\resources\\Tetris.wav");
-        config.changeVolume(config.getSound());
+       // config.play("C:\\Users\\ajose\\Desktop\\Tetris01_02_03(aula teorica)\\src\\tetris\\resources\\Tetris.wav");
     }
 
     /**

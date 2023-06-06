@@ -6,6 +6,7 @@ package tetris.lib.game;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import tetris.gui.Configs;
 import tetris.gui.GameOver;
 import tetris.gui.GraphicsTetrisDialog;
 import tetris.lib.blocks.Empty;
@@ -58,6 +59,7 @@ public class TetrisGame extends Board{
         public void run() {
             if (isGameOver()) {
                 stopGame();
+                openGameOverDialog();
             } else if (canMovePiece(1, 0)) {
                 moveDown();
             } else {
@@ -70,8 +72,12 @@ public class TetrisGame extends Board{
  
 
     }
-
- 
+    
+    
+    private void openGameOverDialog() {
+        GameOver gameOverDialog = new GameOver(null, true);
+        gameOverDialog.setVisible(true);
+    }
 
     public boolean isLineFull(int line) {
         for (int x = 0; x < matrix[line].length; x++) {
