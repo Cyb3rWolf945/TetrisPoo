@@ -36,6 +36,14 @@ public class BlockMatrix extends JPanel implements Drawable {
         draw(g, 0, 0, getWidth(), getHeight());
     }
 
+    /***
+     * 
+     * @param gr
+     * @param px
+     * @param py
+     * @param width
+     * @param height 
+     */
     @Override
     public void draw(Graphics gr, int px, int py, int width, int height) {
         int sizeX = width / getColmuns();
