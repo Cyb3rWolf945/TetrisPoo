@@ -5,6 +5,7 @@
 package tetris.gui;
 
 import tetris.lib.utils.Configurations;
+import tetris.lib.utils.SoundPlayer;
 
 /**
  *
@@ -13,6 +14,7 @@ import tetris.lib.utils.Configurations;
 public class Configs extends javax.swing.JDialog {
 
     private Configurations config;
+    private Boolean isFirstTime = true; 
 
     /**
      * *
@@ -28,7 +30,7 @@ public class Configs extends javax.swing.JDialog {
         initComponents();
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
-        volumeMusic.setValue((int) this.config.getSound());
+        //volumeMusic.setValue((int) this.config.getSound());
     }
 
     /**
@@ -135,18 +137,22 @@ public class Configs extends javax.swing.JDialog {
         this.config.setLines(liness);
         this.config.setCols(colss);
         this.config.WriteConfig();
+        this.config.stop(SoundPlayer.clip);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
         System.out.println("valor mudou para: " + volumeMusic.getValue());
         this.config.setSound(volumeMusic.getValue());
+        if (isFirstTime){
+        this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav",volumeMusic.getValue(),2);
+        isFirstTime = false;
+        } else this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav",volumeMusic.getValue(),3);
     }//GEN-LAST:event_volumeMusicStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.config.setLines(20);
         this.config.setCols(20);
-        this.config.changeVolume(15);
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
         volumeMusic.setValue(15);

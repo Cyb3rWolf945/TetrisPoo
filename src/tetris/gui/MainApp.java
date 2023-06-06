@@ -5,6 +5,7 @@
 package tetris.gui;
 
 import tetris.lib.utils.Configurations;
+import tetris.lib.utils.SoundPlayer;
 
 /**
  *
@@ -20,7 +21,7 @@ public class MainApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Configurations config = new Configurations();
         config.ReadConfig();
-       // config.play("C:\\Users\\ajose\\Desktop\\Tetris01_02_03(aula teorica)\\src\\tetris\\resources\\Tetris.wav");
+        config.play("C:\\Users\\ajose\\Desktop\\Tetris01_02_03(aula teorica)\\src\\tetris\\resources\\Tetris.wav",100,1);
     }
 
     /**
@@ -130,6 +131,8 @@ public class MainApp extends javax.swing.JFrame {
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed
         Configurations config = new Configurations(20, 20, 0);
+        System.out.println(SoundPlayer.clip);
+        config.stop(SoundPlayer.clip);
         new Configs(this, true, config).setVisible(true);
     }//GEN-LAST:event_btAbout2ActionPerformed
 
