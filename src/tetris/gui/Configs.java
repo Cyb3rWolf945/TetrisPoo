@@ -167,7 +167,8 @@ public class Configs extends javax.swing.JDialog {
         if(!isFirstTime){
             this.config.stop(SoundPlayer.clip);
         }
-        this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav",100,1);
+        
+        this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav",config.getSound(),1);
     }//GEN-LAST:event_formWindowClosed
 
     /**

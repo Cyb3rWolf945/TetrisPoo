@@ -46,7 +46,7 @@ public class Configurations extends SoundPlayer implements Config {
      */
     @Override
     public void WriteConfig() {
-        File file = new File("C:\\Users\\ajose\\Desktop\\Tetris01_02_03(aula teorica)\\newfile");
+        File file = new File("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\newfile");
 
         try (FileWriter fileWriter = new FileWriter(file); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
@@ -62,7 +62,7 @@ public class Configurations extends SoundPlayer implements Config {
      */
     @Override
     public void ReadConfig() {
-        File file = new File("C:\\Users\\ajose\\Desktop\\Tetris01_02_03(aula teorica)\\newfile");
+        File file = new File("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\newfile");
         int counter = 0;
 
         try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
