@@ -50,6 +50,11 @@ public class Configs extends javax.swing.JDialog {
         volumeMusic = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         lines.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lines.setModel(new javax.swing.SpinnerNumberModel(20, 8, null, 1));
@@ -157,6 +162,13 @@ public class Configs extends javax.swing.JDialog {
         cols.setValue(this.config.getCols());
         volumeMusic.setValue(15);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if(!isFirstTime){
+            this.config.stop(SoundPlayer.clip);
+        }
+        this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav",100,1);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
