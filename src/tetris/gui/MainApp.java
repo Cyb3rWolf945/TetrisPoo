@@ -21,7 +21,8 @@ public class MainApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Configurations config = new Configurations();
         config.ReadConfig();
-        config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\src\\tetris\\resources\\Tetris.wav",config.getSound(),1);
+        config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\src\\tetris\\resources\\Tetris.wav");
+        config.changeVolume(config.getSound());
     }
 
     /**
