@@ -35,7 +35,7 @@ public class Configs extends javax.swing.JDialog {
         this.soundp.changeVolume(volumeMusic.getValue());
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
-        //volumeMusic.setValue((int) this.config.getSound());
+        setLocationRelativeTo(null);
     }
 
     /**
