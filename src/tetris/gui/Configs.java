@@ -13,9 +13,9 @@ import tetris.lib.utils.SoundPlayer;
  */
 public class Configs extends javax.swing.JDialog {
     private SoundPlayer soundp;
-
     private Configurations config;
     private Boolean isFirstTime = true;
+    
 
     /**
      * *
@@ -30,7 +30,11 @@ public class Configs extends javax.swing.JDialog {
         this.soundp = soundp;
         this.config.ReadConfig();
         initComponents();
-        
+        switch(this.config.getDifficulty()){
+            case 0 -> RB_Easy.setSelected(true);
+            case 1 -> RB_Normal.setSelected(true);
+            case 2 -> RB_Hard.setSelected(true);
+        }
         volumeMusic.setValue((int) this.soundp.getVolumeToSlider());
         this.soundp.changeVolume(volumeMusic.getValue());
         lines.setValue(this.config.getLines());
@@ -47,12 +51,18 @@ public class Configs extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         lines = new javax.swing.JSpinner();
-        cols = new javax.swing.JSpinner();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         volumeMusic = new javax.swing.JSlider();
+        jLabel2 = new javax.swing.JLabel();
+        RB_Easy = new javax.swing.JRadioButton();
+        RB_Normal = new javax.swing.JRadioButton();
+        RB_Hard = new javax.swing.JRadioButton();
+        cols = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -68,12 +78,6 @@ public class Configs extends javax.swing.JDialog {
         lines.setFocusable(false);
         lines.setRequestFocusEnabled(false);
 
-        cols.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cols.setModel(new javax.swing.SpinnerNumberModel(10, 5, null, 1));
-        cols.setBorder(javax.swing.BorderFactory.createTitledBorder("Colunas"));
-        cols.setFocusable(false);
-        cols.setRequestFocusEnabled(false);
-
         jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +92,7 @@ public class Configs extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("             Música");
+        jLabel1.setText("Música");
 
         volumeMusic.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -96,43 +100,102 @@ public class Configs extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setText("Dificuldade");
+
+        RB_Easy.setText("Fácil");
+        RB_Easy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RB_EasyActionPerformed(evt);
+            }
+        });
+
+        RB_Normal.setText("Normal");
+        RB_Normal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RB_NormalActionPerformed(evt);
+            }
+        });
+
+        RB_Hard.setText("Difícil");
+        RB_Hard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RB_HardActionPerformed(evt);
+            }
+        });
+
+        cols.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        cols.setModel(new javax.swing.SpinnerNumberModel(20, 8, null, 1));
+        cols.setBorder(javax.swing.BorderFactory.createTitledBorder("Linhas"));
+        cols.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cols.setFocusable(false);
+        cols.setRequestFocusEnabled(false);
+
+        jLabel3.setText("Dimensão");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(144, 144, 144)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(119, 119, 119))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lines, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(cols, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(volumeMusic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(74, 74, 74))
+                        .addGap(73, 73, 73)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(volumeMusic, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(RB_Easy)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(RB_Normal)
+                                        .addGap(26, 26, 26)
+                                        .addComponent(RB_Hard)))
+                                .addGap(9, 9, 9))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(83, 83, 83)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lines, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(49, 49, 49)
+                                    .addComponent(cols, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cols, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
                 .addComponent(volumeMusic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(RB_Easy)
+                    .addComponent(RB_Normal)
+                    .addComponent(RB_Hard))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
 
@@ -150,7 +213,6 @@ public class Configs extends javax.swing.JDialog {
         this.config.WriteConfig();
         this.config.stop(SoundPlayer.clip);
         dispose();
-        new MainApp().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
@@ -184,6 +246,24 @@ public class Configs extends javax.swing.JDialog {
         this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav");
         this.config.changeVolume(this.config.getSound());
     }//GEN-LAST:event_formWindowClosed
+
+    private void RB_HardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_HardActionPerformed
+        RB_Easy.setSelected(false);
+        RB_Normal.setSelected(false);
+        this.config.setDifficulty(2);
+    }//GEN-LAST:event_RB_HardActionPerformed
+
+    private void RB_NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_NormalActionPerformed
+        RB_Easy.setSelected(false);
+        RB_Hard.setSelected(false);
+        this.config.setDifficulty(1);
+    }//GEN-LAST:event_RB_NormalActionPerformed
+
+    private void RB_EasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_EasyActionPerformed
+        RB_Hard.setSelected(false);
+        RB_Normal.setSelected(false);
+        this.config.setDifficulty(0);
+    }//GEN-LAST:event_RB_EasyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,10 +306,16 @@ public class Configs extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton RB_Easy;
+    private javax.swing.JRadioButton RB_Hard;
+    private javax.swing.JRadioButton RB_Normal;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JSpinner cols;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSpinner lines;
     private javax.swing.JSlider volumeMusic;
     // End of variables declaration//GEN-END:variables

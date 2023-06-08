@@ -28,7 +28,7 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
         config.ReadConfig();
         tetris.resize(config.getLines(), config.getCols());
         tetris.generateRandomPiece();
-        tetris.startGame(200);
+        tetris.startGame(config.getDifficulty());
         jPanel1.setFocusable(true);
         jPanel1.requestFocus();
     }

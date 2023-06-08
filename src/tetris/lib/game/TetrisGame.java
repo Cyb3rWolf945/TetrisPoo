@@ -20,7 +20,7 @@ public class TetrisGame extends Board{
     
     Timer timer;
     private int Score = 0;
-    
+  
 
     public TetrisGame() {
         super();
@@ -28,12 +28,16 @@ public class TetrisGame extends Board{
 
  
 
-    public void startGame(int delay) {
+    public void startGame(int diff) {
         timer = new Timer();
-        timer.schedule(new MoveGame(), 0, delay);
+        switch(diff){
+            case 0 -> timer.schedule(new MoveGame(), 0, 600);
+            case 1 -> timer.schedule(new MoveGame(), 0, 400);
+            case 2 -> timer.schedule(new MoveGame(), 0, 100);
+        }
     }
 
- 
+   
 
     public void stopGame() {
         timer.cancel();

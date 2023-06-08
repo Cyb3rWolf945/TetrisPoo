@@ -135,12 +135,13 @@ public class MainApp extends javax.swing.JFrame {
     }//GEN-LAST:event_btPlayActionPerformed
 
     private void btAbout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout1ActionPerformed
+        dispose();
         new RulesDialog(this, true).setVisible(true);
     }//GEN-LAST:event_btAbout1ActionPerformed
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed
         dispose();
-        Configurations config = new Configurations(20, 20,SoundPlayer.actualVolume);
+        Configurations config = new Configurations();
         SoundPlayer soundp = new SoundPlayer();
         System.out.println(SoundPlayer.clip);
         config.stop(SoundPlayer.clip);

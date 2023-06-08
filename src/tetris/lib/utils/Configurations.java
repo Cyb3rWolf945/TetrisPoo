@@ -21,7 +21,7 @@ public class Configurations extends SoundPlayer implements Config {
     private int lines;
     private int cols;
     private float sound; 
-    
+    private int difficulty = 1;
     /***
      * Empty constructor
      */
@@ -29,16 +29,19 @@ public class Configurations extends SoundPlayer implements Config {
         super();
     }
     
+    
     /***
      * 
      * @param lines
      * @param cols 
      * @param sound 
+     * @param difficulty 
      */
-    public Configurations(int lines, int cols, float sound){
+    public Configurations(int lines, int cols, float sound, int difficulty){
         this.lines = lines;
         this.cols = cols;
         this.sound = sound;
+        this.difficulty = difficulty;
     }
             
     /***
@@ -50,7 +53,7 @@ public class Configurations extends SoundPlayer implements Config {
 
         try (FileWriter fileWriter = new FileWriter(file); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-            bufferedWriter.write(this.getLines() + "\n" + this.getCols() + "\n" + this.getSound());
+            bufferedWriter.write(this.getLines() + "\n" + this.getCols() + "\n" + this.getSound()+ "\n" + this.getDifficulty());
 
             System.out.println("Data written to the file.");
         } catch (IOException e) {
@@ -79,6 +82,8 @@ public class Configurations extends SoundPlayer implements Config {
                         
                     case 2 ->
                         this.setSound(Float.parseFloat(line));
+                        case 3 ->
+                        this.setDifficulty(Integer.parseInt(line));
                 }
                 counter += 1;
             }
@@ -101,6 +106,13 @@ public class Configurations extends SoundPlayer implements Config {
         return cols;
     }
 
+    public int getDifficulty(){
+        return difficulty;
+    }
+    
+    public void setDifficulty(int diff){
+        difficulty = diff;
+    }
     /**
      * @return the sound
      */
