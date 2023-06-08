@@ -4,10 +4,12 @@
  */
 package tetris.gui;
 
+import java.nio.file.FileSystems;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
 import tetris.lib.utils.GlobalVariables;
 import tetris.gui.GraphicsTetrisDialog;
+import tetris.interfaces.Config;
 import tetris.lib.utils.SoundPlayer;
 
 /**
@@ -22,11 +24,23 @@ public class MainApp extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         Configurations config = new Configurations();
-        config.ReadConfig();
+        config.ReadConfig(config.getCurrentPath());
+        System.out.println(config.getCurrentPath());
+        
         if (SoundPlayer.clip == null){
-        config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\src\\tetris\\resources\\Tetris.wav");
+            String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+        config.play(userDirectory + "\\src\\tetris\\resources\\Tetris.wav");
+            System.out.println(SoundPlayer.volumeControl);
         } 
+        
         config.changeVolume(config.getSound());
+        GlobalVariables.CurrentDifficulty = config.getDifficulty();
+        System.out.println(config.getSound());
+        System.out.println(config.getVolumeToSlider());
+        System.out.println(SoundPlayer.clip);
     }
 
     /**
@@ -141,7 +155,7 @@ public class MainApp extends javax.swing.JFrame {
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed
         dispose();
-        Configurations config = new Configurations();
+        Configurations config = new Configurations(3,3,SoundPlayer.actualVolume, GlobalVariables.CurrentDifficulty);
         SoundPlayer soundp = new SoundPlayer();
         System.out.println(SoundPlayer.clip);
         config.stop(SoundPlayer.clip);

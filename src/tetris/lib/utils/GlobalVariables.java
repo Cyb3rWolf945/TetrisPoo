@@ -13,5 +13,6 @@ import tetris.gui.MainApp;
 public class GlobalVariables {
     
     public static GraphicsTetrisDialog graphicsTetris;
+    public static int CurrentDifficulty;
     
 }

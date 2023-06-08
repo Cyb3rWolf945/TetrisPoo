@@ -24,8 +24,8 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
         initComponents();
 
         setLocationRelativeTo(null);
-        Configurations config = new Configurations();
-        config.ReadConfig();
+        Configurations config = new Configurations() {};
+        config.ReadConfig(config.getCurrentPath());
         tetris.resize(config.getLines(), config.getCols());
         tetris.generateRandomPiece();
         tetris.startGame(config.getDifficulty());

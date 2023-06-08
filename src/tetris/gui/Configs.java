@@ -4,6 +4,7 @@
  */
 package tetris.gui;
 
+import java.nio.file.FileSystems;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
 
@@ -28,7 +29,7 @@ public class Configs extends javax.swing.JDialog {
         super(parent, modal);
         this.config = config;
         this.soundp = soundp;
-        this.config.ReadConfig();
+        this.config.ReadConfig(config.getCurrentPath());
         initComponents();
         switch(this.config.getDifficulty()){
             case 0 -> RB_Easy.setSelected(true);
@@ -210,7 +211,7 @@ public class Configs extends javax.swing.JDialog {
         this.config.setLines(liness);
         this.config.setCols(colss);
         this.config.setSound(volumeMusic.getValue());
-        this.config.WriteConfig();
+        this.config.WriteConfig(config.getCurrentPath());
         this.config.stop(SoundPlayer.clip);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -220,8 +221,11 @@ public class Configs extends javax.swing.JDialog {
         if (!isFirstTime) {
             this.config.changeVolume(volumeMusic.getValue());
         } else {
-
-            this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav");
+ String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+            this.config.play(userDirectory + "\\src\\tetris\\resources\\Tetris.wav");
 
         }
 
@@ -243,8 +247,13 @@ public class Configs extends javax.swing.JDialog {
         }
         dispose();
         new MainApp().setVisible(true);
-        this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav");
+        String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+        this.config.play(userDirectory + "\\src\\tetris\\resources\\Tetris.wav");
         this.config.changeVolume(this.config.getSound());
+        System.out.println(this.config.getSound());
     }//GEN-LAST:event_formWindowClosed
 
     private void RB_HardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_HardActionPerformed

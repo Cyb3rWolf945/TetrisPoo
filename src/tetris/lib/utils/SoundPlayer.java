@@ -26,12 +26,11 @@ public class SoundPlayer {
         try {
            
             File file = new File(filePath);
+            System.out.println(file);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-
                 
             
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -39,12 +38,15 @@ public class SoundPlayer {
     }
 
     public void changeVolume(float volume){
+            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            volumeControl.setValue(0); 
             float linearVolume = volume / 100.0f;
             float minVolume = volumeControl.getMinimum();
             float maxVolume = volumeControl.getMaximum();
             actualVolume = minVolume + (linearVolume * (maxVolume - minVolume));
             volumeControl.setValue(actualVolume);      
             System.out.println(volumeControl);
+            System.out.println(actualVolume);
     }
     
    

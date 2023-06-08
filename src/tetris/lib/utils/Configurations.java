@@ -10,88 +10,108 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import tetris.interfaces.Config;
+
 /**
  *
  * @author ajose
  */
 public class Configurations extends SoundPlayer implements Config {
-    
+
     private int lines;
     private int cols;
-    private float sound; 
-    private int difficulty = 1;
-    /***
+    private float sound ;
+    private int difficulty ;
+
+    /**
+     * *
      * Empty constructor
      */
-    public Configurations(){
-        super();
+    public Configurations() {
+        this(10, 10, 10, 1);
     }
-    
-    
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @param lines
-     * @param cols 
-     * @param sound 
-     * @param difficulty 
+     * @param cols
+     * @param sound
+     * @param difficulty
      */
-    public Configurations(int lines, int cols, float sound, int difficulty){
+    public Configurations(int lines, int cols, float sound, int difficulty) {
         this.lines = lines;
         this.cols = cols;
         this.sound = sound;
         this.difficulty = difficulty;
     }
-            
-    /***
+
+    /**
+     * *
      * Write config in the file for persistent memory.
+     * @param files
      */
-    @Override
-    public void WriteConfig() {
-        File file = new File("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\newfile");
+    public void WriteConfig(File files) {
+        try {
+            files.createNewFile();
+        } catch (IOException ex) {
+            Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try (FileWriter fileWriter = new FileWriter(files); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-        try (FileWriter fileWriter = new FileWriter(file); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-
-            bufferedWriter.write(this.getLines() + "\n" + this.getCols() + "\n" + this.getSound()+ "\n" + this.getDifficulty());
+            bufferedWriter.write(this.getLines() + "\n" + this.getCols() + "\n" + this.getSound() + "\n" + this.getDifficulty());
 
             System.out.println("Data written to the file.");
         } catch (IOException e) {
         }        // TODO add your handling c
     }
-    
-    /***
+
+    /**
+     * *
      * Read config from the file.
+     * @param files
      */
-    @Override
-    public void ReadConfig() {
-        File file = new File("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\newfile");
-        int counter = 0;
+    public void ReadConfig(File files) {
+        if (files.exists()) {
+            int counter = 0;
 
-        try (FileReader fileReader = new FileReader(file); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+            try (FileReader fileReader = new FileReader(files); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
+                String line;
+                while ((line = bufferedReader.readLine()) != null) {
 
-                switch (counter) {
-                    case 0 ->
-                        this.setLines(Integer.parseInt(line));
+                    switch (counter) {
+                        case 0 ->
+                            this.setLines(Integer.parseInt(line));
 
-                    case 1 ->
-                        this.setCols(Integer.parseInt(line));
-                        
-                    case 2 ->
-                        this.setSound(Float.parseFloat(line));
+                        case 1 ->
+                            this.setCols(Integer.parseInt(line));
+
+                        case 2 ->
+                            this.setSound(Float.parseFloat(line));
                         case 3 ->
-                        this.setDifficulty(Integer.parseInt(line));
+                            this.setDifficulty(Integer.parseInt(line));
+                    }
+                    counter += 1;
                 }
-                counter += 1;
+            } catch (IOException e) {
             }
-        } catch (IOException e) {
+        } else {
+            try {
+                files.createNewFile();
+            } catch (IOException ex) {
+                Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            WriteConfig(getCurrentPath());
         }
+
     }
 
-    
     /**
      * @return the lines
      */
@@ -106,13 +126,24 @@ public class Configurations extends SoundPlayer implements Config {
         return cols;
     }
 
-    public int getDifficulty(){
+    public File getCurrentPath() {
+        String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+        File files = new File(userDirectory + "\\config");
+
+        return files;
+    }
+
+    public int getDifficulty() {
         return difficulty;
     }
-    
-    public void setDifficulty(int diff){
+
+    public void setDifficulty(int diff) {
         difficulty = diff;
     }
+
     /**
      * @return the sound
      */
@@ -140,5 +171,25 @@ public class Configurations extends SoundPlayer implements Config {
     public void setSound(float sound) {
         this.sound = sound;
     }
+
+    @Override
+    public void WriteConfig() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void ReadConfig() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
+   
+
+    
+    
+
+    
+
+    
+
 }
