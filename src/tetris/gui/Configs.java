@@ -12,6 +12,7 @@ import tetris.lib.utils.SoundPlayer;
  * @author ajose
  */
 public class Configs extends javax.swing.JDialog {
+    private SoundPlayer soundp;
 
     private Configurations config;
     private Boolean isFirstTime = true;
@@ -23,11 +24,15 @@ public class Configs extends javax.swing.JDialog {
      * @param modal
      * @param config
      */
-    public Configs(java.awt.Frame parent, boolean modal, Configurations config) {
+    public Configs(java.awt.Frame parent, boolean modal, Configurations config, SoundPlayer soundp) {
         super(parent, modal);
         this.config = config;
+        this.soundp = soundp;
         this.config.ReadConfig();
         initComponents();
+        
+        volumeMusic.setValue((int) this.soundp.getVolumeToSlider());
+        this.soundp.changeVolume(volumeMusic.getValue());
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
         //volumeMusic.setValue((int) this.config.getSound());
@@ -145,6 +150,7 @@ public class Configs extends javax.swing.JDialog {
         this.config.WriteConfig();
         this.config.stop(SoundPlayer.clip);
         dispose();
+        new MainApp().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
@@ -173,7 +179,8 @@ public class Configs extends javax.swing.JDialog {
         if (!isFirstTime) {
             this.config.stop(SoundPlayer.clip);
         }
-
+        dispose();
+        new MainApp().setVisible(true);
         this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav");
         this.config.changeVolume(this.config.getSound());
     }//GEN-LAST:event_formWindowClosed
@@ -207,7 +214,7 @@ public class Configs extends javax.swing.JDialog {
         //</editor-fold>
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
-            Configs dialog = new Configs(new javax.swing.JFrame(), true, new Configurations());
+            Configs dialog = new Configs(new javax.swing.JFrame(), true, new Configurations(), new SoundPlayer());
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {

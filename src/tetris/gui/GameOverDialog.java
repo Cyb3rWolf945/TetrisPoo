@@ -59,6 +59,14 @@ public class GameOverDialog extends JDialog {
                 new MainApp().setVisible(true);
             }
         });
+        
+         addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                dispose();  // Close the dialog
+                new MainApp().setVisible(true);
+            }
+        });
 
         // Set dialog properties
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
