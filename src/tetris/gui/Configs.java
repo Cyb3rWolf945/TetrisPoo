@@ -14,7 +14,7 @@ import tetris.lib.utils.SoundPlayer;
 public class Configs extends javax.swing.JDialog {
 
     private Configurations config;
-    private Boolean isFirstTime = true; 
+    private Boolean isFirstTime = true;
 
     /**
      * *
@@ -141,6 +141,7 @@ public class Configs extends javax.swing.JDialog {
         float sound = (float) volumeMusic.getValue();
         this.config.setLines(liness);
         this.config.setCols(colss);
+        this.config.setSound(volumeMusic.getValue());
         this.config.WriteConfig();
         this.config.stop(SoundPlayer.clip);
         dispose();
@@ -148,14 +149,14 @@ public class Configs extends javax.swing.JDialog {
 
     private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
         System.out.println("valor mudou para: " + volumeMusic.getValue());
-        this.config.setSound(volumeMusic.getValue());
-        if(!isFirstTime){
-        this.config.changeVolume(volumeMusic.getValue());
-        }else{
-              this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav");
+        if (!isFirstTime) {
+            this.config.changeVolume(volumeMusic.getValue());
+        } else {
+
+            this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav");
 
         }
-        
+
         isFirstTime = false;
     }//GEN-LAST:event_volumeMusicStateChanged
 
@@ -169,12 +170,12 @@ public class Configs extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        if(!isFirstTime){
+        if (!isFirstTime) {
             this.config.stop(SoundPlayer.clip);
         }
-        
+
         this.config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoos\\src\\tetris\\resources\\Tetris.wav");
-        this.config.changeVolume(volumeMusic.getValue());
+        this.config.changeVolume(this.config.getSound());
     }//GEN-LAST:event_formWindowClosed
 
     /**
