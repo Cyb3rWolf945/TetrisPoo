@@ -6,13 +6,15 @@ package tetris.gui;
 
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
+import tetris.lib.utils.GlobalVariables;
+import tetris.gui.GraphicsTetrisDialog;
+import tetris.lib.utils.SoundPlayer;
 
 /**
  *
  * @author IPT
  */
 public class MainApp extends javax.swing.JFrame {
-
     /**
      * Creates new form MainApp
      */
@@ -21,7 +23,9 @@ public class MainApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Configurations config = new Configurations();
         config.ReadConfig();
+        if (SoundPlayer.clip == null){
         config.play("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPooaa\\src\\tetris\\resources\\Tetris.wav");
+        } 
         config.changeVolume(config.getSound());
     }
 
@@ -117,13 +121,17 @@ public class MainApp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAboutActionPerformed
+        dispose();
         AboutDialog about = new AboutDialog(this, true);
         about.setLocationRelativeTo(btAbout);
         about.setVisible(true);
     }//GEN-LAST:event_btAboutActionPerformed
 
     private void btPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPlayActionPerformed
-      new GraphicsTetrisDialog(this, true).setVisible(true);
+        dispose();
+        GraphicsTetrisDialog a = new GraphicsTetrisDialog(this, true);
+        GlobalVariables.graphicsTetris = a;
+        a.setVisible(true);
     }//GEN-LAST:event_btPlayActionPerformed
 
     private void btAbout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout1ActionPerformed
@@ -131,10 +139,12 @@ public class MainApp extends javax.swing.JFrame {
     }//GEN-LAST:event_btAbout1ActionPerformed
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed
-        Configurations config = new Configurations(20, 20, 0);
+        dispose();
+        Configurations config = new Configurations(20, 20,SoundPlayer.actualVolume);
+        SoundPlayer soundp = new SoundPlayer();
         System.out.println(SoundPlayer.clip);
         config.stop(SoundPlayer.clip);
-        new Configs(this, true, config).setVisible(true);
+        new Configs(this, true, config, soundp ).setVisible(true);
     }//GEN-LAST:event_btAbout2ActionPerformed
 
     /**

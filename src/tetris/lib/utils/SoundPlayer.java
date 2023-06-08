@@ -20,6 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 public class SoundPlayer {
     public static Clip clip;
     public static FloatControl volumeControl;
+    public static float actualVolume;
 
     public void play(String filePath) {
         try {
@@ -41,10 +42,18 @@ public class SoundPlayer {
             float linearVolume = volume / 100.0f;
             float minVolume = volumeControl.getMinimum();
             float maxVolume = volumeControl.getMaximum();
-            float adjustedVolume = minVolume + (linearVolume * (maxVolume - minVolume));
-            volumeControl.setValue(adjustedVolume);
+            actualVolume = minVolume + (linearVolume * (maxVolume - minVolume));
+            volumeControl.setValue(actualVolume);      
+            System.out.println(volumeControl);
     }
     
+   
+    public float getVolumeToSlider(){
+        float volumeSlider;
+        float minVolume = volumeControl.getMinimum();
+        float maxVolume = volumeControl.getMaximum();
+        return volumeSlider = ((actualVolume - minVolume) / (maxVolume - minVolume) * 100.0f);
+    }
     public void stop(Clip c) {
         if (c != null) {
             c.stop();

@@ -7,8 +7,9 @@ package tetris.lib.game;
 import java.util.Timer;
 import java.util.TimerTask;
 import tetris.gui.Configs;
-import tetris.gui.GameOver;
+import tetris.gui.GameOverDialog;
 import tetris.gui.GraphicsTetrisDialog;
+import tetris.lib.utils.GlobalVariables;
 import tetris.lib.blocks.Empty;
 
 /**
@@ -36,7 +37,6 @@ public class TetrisGame extends Board{
 
     public void stopGame() {
         timer.cancel();
-        System.out.println("ja fostesssss");
         //.........
 
     }
@@ -44,7 +44,7 @@ public class TetrisGame extends Board{
 
     
  public boolean isGameOver() {
-        return current.getPositionY() == 0 //esta no top
+        return current.getPositionY() == -0 //esta no top
                 && !canMovePiece(1, 0); //não pode descer
 
  
@@ -75,7 +75,8 @@ public class TetrisGame extends Board{
     
     
     private void openGameOverDialog() {
-        GameOver gameOverDialog = new GameOver(null, true);
+        GlobalVariables.graphicsTetris.dispose();
+        GameOverDialog gameOverDialog = new GameOverDialog(null);
         gameOverDialog.setVisible(true);
     }
 
