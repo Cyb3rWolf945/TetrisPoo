@@ -18,7 +18,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author ajose
  */
 public class SoundPlayer {
-    public static Clip clip;
+    public static Clip clip ;
     public static FloatControl volumeControl;
     public static float actualVolume;
 
@@ -26,27 +26,39 @@ public class SoundPlayer {
         try {
            
             File file = new File(filePath);
-            System.out.println(file);
+             System.out.println("file:");  
+              System.out.println(filePath);  
+
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            
             clip = AudioSystem.getClip();
+            System.out.println("clip");  
+              System.out.println(clip);
             clip.open(audioInputStream);
+            clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-                
+             System.out.println("clip");  
+              System.out.println(clip);
             
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e.getMessage());
         }
     }
 
-    public void changeVolume(float volume){
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            volumeControl.setValue(0); 
+    public void changeVolumeSlide(float volume){
+            System.out.println(clip + "   Dentro changeVolume");    
             float linearVolume = volume / 100.0f;
             float minVolume = volumeControl.getMinimum();
             float maxVolume = volumeControl.getMaximum();
-            actualVolume = minVolume + (linearVolume * (maxVolume - minVolume));
-            volumeControl.setValue(actualVolume);      
+            actualVolume = minVolume + (linearVolume * (maxVolume - minVolume));    
             System.out.println(volumeControl);
             System.out.println(actualVolume);
+    }
+    
+    public void setVolume(){
+            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            volumeControl.setValue(actualVolume);      
+           
     }
     
    

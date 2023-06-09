@@ -5,6 +5,8 @@
 package tetris.gui;
 
 import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
 import tetris.lib.utils.GlobalVariables;
@@ -25,18 +27,24 @@ public class MainApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         Configurations config = new Configurations();
         config.ReadConfig(config.getCurrentPath());
+        SoundPlayer.actualVolume = config.getSound();
         System.out.println(config.getCurrentPath());
         
-        if (SoundPlayer.clip == null){
+       if (SoundPlayer.clip == null){
             String userDirectory = FileSystems.getDefault()
                 .getPath("")
                 .toAbsolutePath()
                 .toString();
-        config.play(userDirectory + "\\src\\tetris\\resources\\Tetris.wav");
-            System.out.println(SoundPlayer.volumeControl);
+           Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\Tetris.wav"); 
+           Path directoryPath = fullPath.getParent();
+           String finalPath = (directoryPath + "\\Tetris.wav");
+           
+        
+           config.play(finalPath.replace("\\dist", ""));
+              System.out.println(finalPath);
         } 
         
-        config.changeVolume(config.getSound());
+        config.setVolume();
         GlobalVariables.CurrentDifficulty = config.getDifficulty();
         System.out.println(config.getSound());
         System.out.println(config.getVolumeToSlider());
@@ -158,7 +166,6 @@ public class MainApp extends javax.swing.JFrame {
         Configurations config = new Configurations(3,3,SoundPlayer.actualVolume, GlobalVariables.CurrentDifficulty);
         SoundPlayer soundp = new SoundPlayer();
         System.out.println(SoundPlayer.clip);
-        config.stop(SoundPlayer.clip);
         new Configs(this, true, config, soundp ).setVisible(true);
     }//GEN-LAST:event_btAbout2ActionPerformed
 

@@ -32,7 +32,7 @@ public class Configurations extends SoundPlayer implements Config {
      * Empty constructor
      */
     public Configurations() {
-        this(10, 10, 50, 1);
+        this(10, 10, 3, 1);
     }
 
     /**

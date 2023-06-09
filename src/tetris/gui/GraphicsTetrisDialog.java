@@ -190,6 +190,7 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
             dispose();
             tetris.stopGame();
             new MainApp().setVisible(true);
+            
         } else { /*
         new MainApp().setVisible(true);    }//GEN-LAST:event_formWindowClosed
                
