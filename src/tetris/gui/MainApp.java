@@ -4,6 +4,7 @@
  */
 package tetris.gui;
 
+import java.awt.Toolkit;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,6 +28,7 @@ public class MainApp extends javax.swing.JFrame {
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
+        
         JLabel background;
         setLayout(null);
         String userDirectory = FileSystems.getDefault()
@@ -34,9 +36,11 @@ public class MainApp extends javax.swing.JFrame {
                 .toAbsolutePath()
                 .toString();
            Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\menu.png"); 
-           Path directoryPathImage = fullPathImage.getParent();
+           Path directoryPathImage = fullPathImage.getParent();       
            String finalPathImage = (directoryPathImage + "\\menu.png");
+           String finalPathIcon = (directoryPathImage + "\\icon.png");
         ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
         background = new JLabel("",img,JLabel.CENTER);
         background.setBounds(0,0,312,300);
         add(background);
@@ -142,7 +146,7 @@ public class MainApp extends javax.swing.JFrame {
 
     private void btAbout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout1ActionPerformed
         dispose();
-        new RulesDialog(this, true).setVisible(true);
+        new RulesDialog().setVisible(true);
     }//GEN-LAST:event_btAbout1ActionPerformed
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed
@@ -150,7 +154,7 @@ public class MainApp extends javax.swing.JFrame {
         Configurations config = new Configurations(3,3,SoundPlayer.actualVolume, GlobalVariables.currentDifficulty);
         SoundPlayer soundp = new SoundPlayer();
         System.out.println(SoundPlayer.clip);
-        new Configs(this, true, config, soundp ).setVisible(true);
+        new Configs(config, soundp ).setVisible(true);
     }//GEN-LAST:event_btAbout2ActionPerformed
 
     /**

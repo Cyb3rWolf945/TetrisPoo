@@ -1,39 +1,58 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tetris.gui;
 
+import java.awt.Toolkit;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
 
 /**
  *
- * @author ajose
+ * @author Telmo
  */
-public class Configs extends javax.swing.JDialog {
-
-    private SoundPlayer soundp;
+public class Configs extends javax.swing.JFrame {
+ private SoundPlayer soundp;
     private Configurations config;
     private Boolean isFirstTime = true;
-
     /**
-     * *
-     *
-     * @param parent
-     * @param modal
+     * Creates new form Config
      * @param config
+     * @param soundp
      */
-    public Configs(java.awt.Frame parent, boolean modal, Configurations config, SoundPlayer soundp) {
-        super(parent, modal);
+    public Configs(Configurations config, SoundPlayer soundp) {
+       
+         
         this.config = config;
         this.soundp = soundp;
+     
+        
         this.config.ReadConfig(config.getCurrentPath());
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+         setLocationRelativeTo(null);
+         setVisible(true);
+         JLabel background;
+          String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\configs.png"); 
+           Path directoryPathImage = fullPathImage.getParent();
+           String finalPathImage = (directoryPathImage + "\\configs.png");
+            String finalPathIcon = (directoryPathImage + "\\icon.png");
+           setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
+        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
+        background = new JLabel("", img, JLabel.CENTER);
+        background.setBounds(0, 0, 400, 353);
+        add(background);
         switch (this.config.getDifficulty()) {
             case 0 ->
                 RB_Easy.setSelected(true);
@@ -45,7 +64,7 @@ public class Configs extends javax.swing.JDialog {
         volumeMusic.setValue((int) this.soundp.getVolumeToSlider());
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
-        setLocationRelativeTo(null);
+        
     }
 
     /**
@@ -57,7 +76,6 @@ public class Configs extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         lines = new javax.swing.JSpinner();
         BT_Save = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -70,7 +88,8 @@ public class Configs extends javax.swing.JDialog {
         cols = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -79,7 +98,7 @@ public class Configs extends javax.swing.JDialog {
 
         lines.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lines.setModel(new javax.swing.SpinnerNumberModel(20, 8, null, 1));
-        lines.setBorder(javax.swing.BorderFactory.createTitledBorder("Linhas"));
+        lines.setBorder(javax.swing.BorderFactory.createTitledBorder("Lines"));
         lines.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lines.setFocusable(false);
         lines.setRequestFocusEnabled(false);
@@ -98,7 +117,9 @@ public class Configs extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Música");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Volume");
 
         volumeMusic.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -106,23 +127,28 @@ public class Configs extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Dificuldade");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Difficulty");
 
-        RB_Easy.setText("Fácil");
+        RB_Easy.setForeground(new java.awt.Color(255, 255, 255));
+        RB_Easy.setText("Easy");
         RB_Easy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RB_EasyActionPerformed(evt);
             }
         });
 
-        RB_Normal.setText("Normal");
+        RB_Normal.setForeground(new java.awt.Color(255, 255, 255));
+        RB_Normal.setText("Average");
         RB_Normal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RB_NormalActionPerformed(evt);
             }
         });
 
-        RB_Hard.setText("Difícil");
+        RB_Hard.setForeground(new java.awt.Color(255, 255, 255));
+        RB_Hard.setText("Hard");
         RB_Hard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RB_HardActionPerformed(evt);
@@ -131,11 +157,13 @@ public class Configs extends javax.swing.JDialog {
 
         cols.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         cols.setModel(new javax.swing.SpinnerNumberModel(20, 8, null, 1));
-        cols.setBorder(javax.swing.BorderFactory.createTitledBorder("Linhas"));
+        cols.setBorder(javax.swing.BorderFactory.createTitledBorder("Cols"));
         cols.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cols.setFocusable(false);
         cols.setRequestFocusEnabled(false);
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Dimensão");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -143,24 +171,20 @@ public class Configs extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lines, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(49, 49, 49)
-                                .addComponent(cols, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(lines, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50)
+                                .addComponent(cols, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                .addGap(83, 83, 83))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(BT_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(91, 91, 91))
@@ -179,9 +203,9 @@ public class Configs extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cols, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -196,16 +220,17 @@ public class Configs extends javax.swing.JDialog {
                     .addComponent(RB_Easy)
                     .addComponent(RB_Normal)
                     .addComponent(RB_Hard))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BT_Save, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18))
+                .addGap(24, 24, 24))
         );
+
+        cols.getAccessibleContext().setAccessibleName("Cols");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
     private void BT_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_SaveActionPerformed
         int liness = (Integer) lines.getValue();
@@ -217,13 +242,6 @@ public class Configs extends javax.swing.JDialog {
         this.config.WriteConfig(config.getCurrentPath());
         dispose();
     }//GEN-LAST:event_BT_SaveActionPerformed
-
-    private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
-        System.out.println("valor mudou para: " + volumeMusic.getValue());
-        this.config.changeVolumeSlide(volumeMusic.getValue());
-        this.config.setVolume();
-
-    }//GEN-LAST:event_volumeMusicStateChanged
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.config.setLines(10);
@@ -240,28 +258,17 @@ public class Configs extends javax.swing.JDialog {
         System.out.println("deu?");
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        if (!isFirstTime) {
-            this.config.stop(SoundPlayer.clip);
-        }
-        dispose();
-        new MainApp().setVisible(true);
-        String userDirectory = FileSystems.getDefault()
-                .getPath("")
-                .toAbsolutePath()
-                .toString();
-        Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\Tetris.wav");
-        Path directoryPath = fullPath.getParent();
-        String finalPath = (directoryPath + "\\Tetris.wav");
+    private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
+        System.out.println("valor mudou para: " + volumeMusic.getValue());
+        this.config.changeVolumeSlide(volumeMusic.getValue());
         this.config.setVolume();
-        System.out.println(this.config.getSound());
-    }//GEN-LAST:event_formWindowClosed
+    }//GEN-LAST:event_volumeMusicStateChanged
 
-    private void RB_HardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_HardActionPerformed
-        RB_Easy.setSelected(false);
+    private void RB_EasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_EasyActionPerformed
+        RB_Hard.setSelected(false);
         RB_Normal.setSelected(false);
-        this.config.setDifficulty(2);
-    }//GEN-LAST:event_RB_HardActionPerformed
+        this.config.setDifficulty(0);
+    }//GEN-LAST:event_RB_EasyActionPerformed
 
     private void RB_NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_NormalActionPerformed
         RB_Easy.setSelected(false);
@@ -269,11 +276,15 @@ public class Configs extends javax.swing.JDialog {
         this.config.setDifficulty(1);
     }//GEN-LAST:event_RB_NormalActionPerformed
 
-    private void RB_EasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_EasyActionPerformed
-        RB_Hard.setSelected(false);
+    private void RB_HardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_HardActionPerformed
+        RB_Easy.setSelected(false);
         RB_Normal.setSelected(false);
-        this.config.setDifficulty(0);
-    }//GEN-LAST:event_RB_EasyActionPerformed
+        this.config.setDifficulty(2);
+    }//GEN-LAST:event_RB_HardActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        new MainApp().setVisible(true);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -282,7 +293,7 @@ public class Configs extends javax.swing.JDialog {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-     * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -302,16 +313,12 @@ public class Configs extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            Configs dialog = new Configs(new javax.swing.JFrame(), true, new Configurations(), new SoundPlayer());
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+               
+            }
         });
     }
 
@@ -320,7 +327,6 @@ public class Configs extends javax.swing.JDialog {
     private javax.swing.JRadioButton RB_Easy;
     private javax.swing.JRadioButton RB_Hard;
     private javax.swing.JRadioButton RB_Normal;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JSpinner cols;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
