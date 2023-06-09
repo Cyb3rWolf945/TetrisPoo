@@ -45,7 +45,7 @@ public class MainApp extends javax.swing.JFrame {
         } 
         
         config.setVolume();
-        GlobalVariables.CurrentDifficulty = config.getDifficulty();
+        GlobalVariables.currentDifficulty = config.getDifficulty();
         System.out.println(config.getSound());
         System.out.println(config.getVolumeToSlider());
         System.out.println(SoundPlayer.clip);
@@ -163,7 +163,7 @@ public class MainApp extends javax.swing.JFrame {
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed
         dispose();
-        Configurations config = new Configurations(3,3,SoundPlayer.actualVolume, GlobalVariables.CurrentDifficulty);
+        Configurations config = new Configurations(3,3,SoundPlayer.actualVolume, GlobalVariables.currentDifficulty);
         SoundPlayer soundp = new SoundPlayer();
         System.out.println(SoundPlayer.clip);
         new Configs(this, true, config, soundp ).setVisible(true);

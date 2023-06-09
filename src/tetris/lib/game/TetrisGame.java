@@ -16,28 +16,26 @@ import tetris.lib.blocks.Empty;
  *
  * @author ajose
  */
-public class TetrisGame extends Board{
-    
+public class TetrisGame extends Board {
+
     Timer timer;
     private int Score = 0;
-  
 
     public TetrisGame() {
         super();
     }
 
- 
-
     public void startGame(int diff) {
         timer = new Timer();
-        switch(diff){
-            case 0 -> timer.schedule(new MoveGame(), 0, 600);
-            case 1 -> timer.schedule(new MoveGame(), 0, 400);
-            case 2 -> timer.schedule(new MoveGame(), 0, 100);
+        switch (diff) {
+            case 0 ->
+                timer.schedule(new MoveGame(), 0, 600);
+            case 1 ->
+                timer.schedule(new MoveGame(), 0, 400);
+            case 2 ->
+                timer.schedule(new MoveGame(), 0, 100);
         }
     }
-
-   
 
     public void stopGame() {
         timer.cancel();
@@ -45,19 +43,13 @@ public class TetrisGame extends Board{
 
     }
 
-
-    
- public boolean isGameOver() {
+    public boolean isGameOver() {
         return current.getPositionY() == -0 //esta no top
                 && !canMovePiece(1, 0); //não pode descer
-
- 
 
     }
 
     private class MoveGame extends TimerTask {
-
- 
 
         @Override
         public void run() {
@@ -69,15 +61,17 @@ public class TetrisGame extends Board{
             } else {
                 freezePiece();
                 generateRandomPiece();
-                setScore((getScore() + 10));
+                if (getScore() == 0){
+                setScore(10);
+                }else{
+                setScore((int) (getScore() * getDifficultyBonus()));
+                }
+                 GlobalVariables.jtext.setText(String.valueOf(getScore()));
             }
         }
 
- 
-
     }
-    
-    
+
     private void openGameOverDialog() {
         GlobalVariables.graphicsTetris.dispose();
         GameOverDialog gameOverDialog = new GameOverDialog(null);
@@ -92,11 +86,17 @@ public class TetrisGame extends Board{
         }
         return true;
 
- 
-
     }
 
- 
+    public float getDifficultyBonus() {
+        float bonus = 0;
+        switch (GlobalVariables.currentDifficulty) {
+            case 0 -> bonus = (float) 2;
+            case 1 -> bonus = (float) 2.5;
+            case 2 -> bonus = (float) 3;
+        }
+        return bonus;
+    }
 
     public void deleteLine(int line) {
         //fall down all columns above line
@@ -110,22 +110,20 @@ public class TetrisGame extends Board{
         for (int x = 0; x < matrix[0].length; x++) {
             matrix[0][x] = new Empty();
         }
+        this.Score += 100;
     }
-    
-    public void deleteFullLines(){
+
+    public void deleteFullLines() {
         //iterate lines from bottom
-        for(int y = matrix.length-1 ; y > 0; y--){
+        for (int y = matrix.length - 1; y > 0; y--) {
             //verify if line is full
-            while( isLineFull(y)){
+            while (isLineFull(y)) {
                 //delete line
                 deleteLine(y);
-            } 
+            }
         }
-        
-        this.Score += 10;
-        
     }
-    
+
     @Override
     public void freezePiece() {
         //call freeze of board
@@ -147,7 +145,5 @@ public class TetrisGame extends Board{
     public void setScore(int Score) {
         this.Score = Score;
     }
-    
-    
-    
+
 }
