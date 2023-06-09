@@ -87,9 +87,6 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -205,9 +202,6 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
         }
          
     }//GEN-LAST:event_formWindowClosed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-new MainApp().setVisible(true);    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
