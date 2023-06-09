@@ -27,14 +27,14 @@ import tetris.lib.blocks.Empty;
  */
 public class PieceS extends Piece {
 
-    public static Block[][] M = {
+    public static Block[][] S = {
         { new Empty(),new Block('S', Color.yellow), new Block('S', Color.YELLOW)},
         {new Block('S', Color.YELLOW), new Block('S', Color.YELLOW),new Empty() }
 
     };
 
     public PieceS() {
-        super(M, 0, 0);
+        super(S, 0, 0);
     }
 
   

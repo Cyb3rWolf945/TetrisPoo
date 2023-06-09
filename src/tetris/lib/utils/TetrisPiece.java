@@ -17,6 +17,7 @@ package tetris.lib.utils;
 
 import java.util.Random;
 import tetris.lib.pieces.Piece;
+import tetris.lib.pieces.PieceI;
 import tetris.lib.pieces.PieceJ;
 import tetris.lib.pieces.PieceL;
 import tetris.lib.pieces.PieceO;
@@ -39,7 +40,8 @@ public enum TetrisPiece {
     S(new PieceS()),
     Z(new PieceZ()),
     J(new PieceJ()),
-    T(new PieceT()),;
+    T(new PieceT()),
+    I(new PieceI());
 
     Piece piece;
 
@@ -55,7 +57,7 @@ public enum TetrisPiece {
      * @return
      */
     public static Piece generateRandom() {
-        return switch (rnd.nextInt(5)) {
+        return switch (rnd.nextInt(6)) {
             case 0 ->
                 L.piece.getClone();
             case 1 ->
@@ -66,6 +68,8 @@ public enum TetrisPiece {
                 Z.piece.getClone();
             case 4 ->
                 J.piece.getClone();
+                case 5 ->
+                I.piece.getClone();
             default ->
                 T.piece.getClone();
         };

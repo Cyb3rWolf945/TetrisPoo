@@ -26,12 +26,12 @@ import tetris.lib.blocks.Block;
  */
 public class PieceI extends Piece {
 
-    public static Block[][] M = {
+    public static Block[][] I = {
         {new Block('I', Color.DARK_GRAY), new Block('I',Color.DARK_GRAY),new Block('I', Color.DARK_GRAY),new Block('I', Color.DARK_GRAY)},        
     };
 
     public PieceI() {
-        super(M, 0, 0);
+        super(I, 0, 0);
     }
 
   

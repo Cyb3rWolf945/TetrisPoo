@@ -27,14 +27,14 @@ import tetris.lib.blocks.Empty;
  */
 public class PieceJ extends Piece {
 
-    public static Block[][] L = {
-        {new Block('J', Color.DARK_GRAY), new Empty()},
-        {new Block('J', Color.DARK_GRAY), new Empty()},
-        {new Block('J', Color.DARK_GRAY), new Block('J', Color.DARK_GRAY)}
+    public static Block[][] J = {
+        {new Empty(), new Block('J', Color.blue)},
+        {new Empty(), new Block('J', Color.blue)},
+        {new Block('J', Color.blue), new Block('J', Color.blue)}
     };
 
     public PieceJ() {
-        super(L, 0, 0);
+        super(J, 0, 0);
     }
 
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
