@@ -29,7 +29,14 @@ public class MainApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         JLabel background;
         setLayout(null);
-        ImageIcon img = new ImageIcon("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoov3e\\src\\tetris\\resources\\menu.png");
+        String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\menu.png"); 
+           Path directoryPathImage = fullPathImage.getParent();
+           String finalPathImage = (directoryPathImage + "\\menu.png");
+        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
         background = new JLabel("",img,JLabel.CENTER);
         background.setBounds(0,0,312,300);
         add(background);
@@ -41,10 +48,6 @@ public class MainApp extends javax.swing.JFrame {
         
         
        if (SoundPlayer.clip == null){
-            String userDirectory = FileSystems.getDefault()
-                .getPath("")
-                .toAbsolutePath()
-                .toString();
            Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\Tetris.wav"); 
            Path directoryPath = fullPath.getParent();
            String finalPath = (directoryPath + "\\Tetris.wav");

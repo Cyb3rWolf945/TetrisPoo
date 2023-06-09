@@ -6,6 +6,9 @@ package tetris.gui;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -30,7 +33,15 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
         jPanel1.setBackground(Color.WHITE);
         JLabel background;
         setLayout(null);
-        ImageIcon img = new ImageIcon("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoov3e\\src\\tetris\\resources\\jogo.png");
+        String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\jogo.png"); 
+           Path directoryPathImage = fullPathImage.getParent();
+           String finalPathImage = (directoryPathImage + "\\jogo.png");
+        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
+        
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 495, 420);
         add(background);

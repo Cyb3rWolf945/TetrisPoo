@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,9 +43,15 @@ public class GameOverDialog extends javax.swing.JFrame {
     public GameOverDialog() {
         initComponents();
         JLabel background;
-
-        setLayout(null);
-        ImageIcon img = new ImageIcon("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoov3e\\src\\tetris\\resources\\gameover.png");
+setLayout(null);
+        String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\gameover.png"); 
+           Path directoryPathImage = fullPathImage.getParent();
+           String finalPathImage = (directoryPathImage + "\\gameover.png");
+        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 330, 244);
         add(background);
