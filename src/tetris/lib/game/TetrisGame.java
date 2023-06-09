@@ -66,6 +66,7 @@ public class TetrisGame extends Board {
                 }else{
                 setScore((int) (getScore() * getDifficultyBonus()));
                 }
+                GlobalVariables.currentScore = getScore();
                  GlobalVariables.jtext.setText(String.valueOf(getScore()));
             }
         }
@@ -74,7 +75,7 @@ public class TetrisGame extends Board {
 
     private void openGameOverDialog() {
         GlobalVariables.graphicsTetris.dispose();
-        GameOverDialog gameOverDialog = new GameOverDialog(null);
+        GameOverDialog gameOverDialog = new GameOverDialog();
         gameOverDialog.setVisible(true);
     }
 
@@ -91,9 +92,9 @@ public class TetrisGame extends Board {
     public float getDifficultyBonus() {
         float bonus = 0;
         switch (GlobalVariables.currentDifficulty) {
-            case 0 -> bonus = (float) 2;
-            case 1 -> bonus = (float) 2.5;
-            case 2 -> bonus = (float) 3;
+            case 0 -> bonus = (float) 1.25;
+            case 1 -> bonus = (float) 1.5;
+            case 2 -> bonus = (float) 1.65;
         }
         return bonus;
     }

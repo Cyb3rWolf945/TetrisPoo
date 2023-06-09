@@ -7,6 +7,8 @@ package tetris.gui;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
 import tetris.lib.utils.GlobalVariables;
@@ -25,10 +27,18 @@ public class MainApp extends javax.swing.JFrame {
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
+        JLabel background;
+        setLayout(null);
+        ImageIcon img = new ImageIcon("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoov3e\\src\\tetris\\resources\\menu.png");
+        background = new JLabel("",img,JLabel.CENTER);
+        background.setBounds(0,0,312,300);
+        add(background);
+        setVisible(true);
         Configurations config = new Configurations();
         config.ReadConfig(config.getCurrentPath());
         SoundPlayer.actualVolume = config.getSound();
         System.out.println(config.getCurrentPath());
+        
         
        if (SoundPlayer.clip == null){
             String userDirectory = FileSystems.getDefault()
@@ -61,23 +71,15 @@ public class MainApp extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        btAbout = new javax.swing.JButton();
         btPlay = new javax.swing.JButton();
         btAbout1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         btAbout2 = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Text Tetris Demo");
-
-        btAbout.setText("Acerca de ...");
-        btAbout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAboutActionPerformed(evt);
-            }
-        });
+        setResizable(false);
 
         btPlay.setText("Jogar");
         btPlay.addActionListener(new java.awt.event.ActionListener() {
@@ -93,9 +95,6 @@ public class MainApp extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tetris/resources/tetris.png"))); // NOI18N
-        jLabel1.setText("Tetris ver 0.2");
-
         btAbout2.setText("Configurações");
         btAbout2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,50 +107,32 @@ public class MainApp extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btAbout1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(btAbout2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btAbout1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btAbout2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addComponent(btAbout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(81, 81, 81)
                 .addComponent(btAbout2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(btAbout1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAboutActionPerformed
-        dispose();
-        AboutDialog about = new AboutDialog(this, true);
-        about.setLocationRelativeTo(btAbout);
-        about.setVisible(true);
-    }//GEN-LAST:event_btAboutActionPerformed
-
     private void btPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPlayActionPerformed
         dispose();
-        GraphicsTetrisDialog a = new GraphicsTetrisDialog(this, true);
+        GraphicsTetrisDialog a = new GraphicsTetrisDialog();
         GlobalVariables.graphicsTetris = a;
         a.setVisible(true);
     }//GEN-LAST:event_btPlayActionPerformed
@@ -204,11 +185,9 @@ public class MainApp extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAbout;
     private javax.swing.JButton btAbout1;
     private javax.swing.JButton btAbout2;
     private javax.swing.JButton btPlay;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

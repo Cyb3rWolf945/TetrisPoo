@@ -1,41 +1,53 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tetris.gui;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.GlobalVariables;
 
 /**
  *
- * @author IPT
+ * @author Telmo
  */
-public final class GraphicsTetrisDialog extends javax.swing.JDialog {
+public class GraphicsTetrisDialog extends javax.swing.JFrame {
 
     /**
-     * Creates new form TextTetrisDialog
-     *
-     * @param parent
-     * @param modal
+     * Creates new form GraphicsTetrisDialogs
      */
-    public GraphicsTetrisDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public GraphicsTetrisDialog() {
         initComponents();
-
         setLocationRelativeTo(null);
+        setSize(505, 460);
+        tetris.setBounds(270, 28, 200, 350);
+        jPanel1.setBounds(73, 391, 70, 20);
+        jPanel1.setBackground(Color.WHITE);
+        JLabel background;
+        setLayout(null);
+        ImageIcon img = new ImageIcon("C:\\Users\\Telmo\\Documents\\NetBeansProjects\\TetrisPoov3e\\src\\tetris\\resources\\jogo.png");
+        background = new JLabel("", img, JLabel.CENTER);
+        background.setBounds(0, 0, 495, 420);
+        add(background);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         Configurations config = new Configurations() {
         };
         config.ReadConfig(config.getCurrentPath());
         tetris.resize(config.getLines(), config.getCols());
         tetris.generateRandomPiece();
         tetris.startGame(config.getDifficulty());
+       
         GlobalVariables.jtext = ScoreValue;
+        setFocusable(true);
+        requestFocus();
         
-        
-        jPanel1.setFocusable(true);
-        jPanel1.requestFocus();
+
     }
 
     /**
@@ -47,16 +59,14 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        ScoreValue = new javax.swing.JLabel();
         tetris = new tetris.lib.game.TetrisGame();
+        jPanel1 = new javax.swing.JPanel();
+        ScoreValue = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(509, 420));
         setResizable(false);
+        setSize(new java.awt.Dimension(530, 470));
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -66,6 +76,9 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -73,101 +86,66 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
             }
         });
 
-        jPanel1.setName(""); // NOI18N
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
-            }
-        });
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel1KeyPressed(evt);
-            }
-        });
+        tetris.setPreferredSize(new java.awt.Dimension(229, 356));
 
-        jPanel2.setLayout(new java.awt.GridLayout(3, 1, 5, 5));
+        javax.swing.GroupLayout tetrisLayout = new javax.swing.GroupLayout(tetris);
+        tetris.setLayout(tetrisLayout);
+        tetrisLayout.setHorizontalGroup(
+            tetrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 202, Short.MAX_VALUE)
+        );
+        tetrisLayout.setVerticalGroup(
+            tetrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 413, Short.MAX_VALUE)
+        );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Tetris");
-        jPanel2.add(jLabel3);
-
-        jPanel4.setLayout(new java.awt.GridLayout(1, 2, 5, 5));
-        jPanel2.add(jPanel4);
-
-        jLabel1.setText("                             SCORE");
+        ScoreValue.setText("0");
+        ScoreValue.setName("ScoreValue"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(ScoreValue, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(ScoreValue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ScoreValue)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.WEST);
-
-        javax.swing.GroupLayout tetrisLayout = new javax.swing.GroupLayout(tetris);
-        tetris.setLayout(tetrisLayout);
-        tetrisLayout.setHorizontalGroup(
-            tetrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(tetris, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        tetrisLayout.setVerticalGroup(
-            tetrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(tetris, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
         );
-
-        getContentPane().add(tetris, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-
-    }//GEN-LAST:event_formKeyPressed
-
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-
-    }//GEN-LAST:event_formMouseClicked
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        if (!tetris.isGameOver()) {
-            dispose();
-            tetris.stopGame();
-            new MainApp().setVisible(true);
-
-        } else {
-            /*
-        new MainApp().setVisible(true);    }//GEN-LAST:event_formWindowClosed
-*/
-        }
-    }
-
-    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
         if (!tetris.isGameOver()) {
 
             switch (evt.getKeyCode()) {
@@ -180,38 +158,45 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
                         tetris.freezePiece();
                         tetris.deleteFullLines();
                         tetris.generateRandomPiece();
-                        if (tetris.getScore() == 0){
+                        if (tetris.getScore() == 0) {
                             tetris.setScore((int) (tetris.getScore() + 10));
-                        }else {
+                        } else {
                             tetris.setScore((int) (tetris.getScore() * tetris.getDifficultyBonus()));
                         }
                         GlobalVariables.jtext.setText(String.valueOf(tetris.getScore()));
+                        GlobalVariables.currentScore = tetris.getScore();
                     }
-                
 
                 }
                 case KeyEvent.VK_LEFT ->
-                tetris.moveLeft();
+                    tetris.moveLeft();
                 case KeyEvent.VK_RIGHT ->
-                tetris.moveRight();
+                    tetris.moveRight();
             }
 
         } else {
             dispose();
         }
-    
-    }//GEN-LAST:event_jPanel1KeyPressed
+    }//GEN-LAST:event_formKeyPressed
 
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        jPanel1.setFocusable(true);
-        jPanel1.requestFocus();
-    }//GEN-LAST:event_jPanel1MouseClicked
-              
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        setFocusable(true);
+        requestFocus();    }//GEN-LAST:event_formMouseClicked
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+         if (!tetris.isGameOver()) {
+            dispose();
+            tetris.stopGame();
+            new MainApp().setVisible(true);
 
-    public void closeDialog() {
-        dispose();
-    }
+        } else {
+        
+        }
+         
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+new MainApp().setVisible(true);    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -240,31 +225,18 @@ public final class GraphicsTetrisDialog extends javax.swing.JDialog {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            GraphicsTetrisDialog dialog = new GraphicsTetrisDialog(new javax.swing.JFrame(), true);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
-            });
-            dialog.setVisible(true);
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GraphicsTetrisDialog().setVisible(true);
+            }
         });
-
     }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ScoreValue;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private tetris.lib.game.TetrisGame tetris;
     // End of variables declaration//GEN-END:variables
 }
