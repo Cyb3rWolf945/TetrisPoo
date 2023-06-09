@@ -15,6 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 package tetris.lib.blocks;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -79,7 +80,7 @@ public class BlockMatrix extends JPanel implements Drawable {
      * one empty block
      */
     public BlockMatrix() {
-        this(new Block[][]{{new Empty()}});
+        this(new Block[][]{{new Empty(new Color(255, 255, 255))}});
     }
 
     /**

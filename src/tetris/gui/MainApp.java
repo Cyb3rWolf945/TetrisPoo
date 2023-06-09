@@ -146,7 +146,7 @@ public class MainApp extends javax.swing.JFrame {
 
     private void btAbout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout1ActionPerformed
         dispose();
-        new RulesDialog().setVisible(true);
+        new ControlsDialog().setVisible(true);
     }//GEN-LAST:event_btAbout1ActionPerformed
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed

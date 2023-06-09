@@ -4,6 +4,7 @@
  */
 package tetris.lib.game;
 
+import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
 import tetris.gui.Configs;
@@ -109,7 +110,7 @@ public class TetrisGame extends Board {
         }
         //put an empty line in the first line
         for (int x = 0; x < matrix[0].length; x++) {
-            matrix[0][x] = new Empty();
+            matrix[0][x] = new Empty(new Color(255, 255, 255));
         }
         this.Score += 100;
     }

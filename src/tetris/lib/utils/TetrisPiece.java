@@ -57,7 +57,7 @@ public enum TetrisPiece {
      * @return
      */
     public static Piece generateRandom() {
-        return switch (rnd.nextInt(6)) {
+        return switch (rnd.nextInt(7)) {
             case 0 ->
                 L.piece.getClone();
             case 1 ->
@@ -68,8 +68,10 @@ public enum TetrisPiece {
                 Z.piece.getClone();
             case 4 ->
                 J.piece.getClone();
-                case 5 ->
+            case 5 ->
                 I.piece.getClone();
+                
+            case 6 ->    T.piece.getClone();
             default ->
                 T.piece.getClone();
         };

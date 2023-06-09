@@ -28,8 +28,8 @@ import tetris.lib.blocks.Empty;
 public class PieceS extends Piece {
 
     public static Block[][] S = {
-        { new Empty(),new Block('S', Color.yellow), new Block('S', Color.YELLOW)},
-        {new Block('S', Color.YELLOW), new Block('S', Color.YELLOW),new Empty() }
+        {new Empty(new Color(255, 255, 255, 80)),new Block('S', Color.yellow), new Block('S', Color.YELLOW)},
+        {new Block('S', Color.YELLOW), new Block('S', Color.YELLOW),new Empty(new Color(255, 255, 255, 80)) }
 
     };
 

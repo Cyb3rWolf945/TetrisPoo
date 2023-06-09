@@ -15,6 +15,7 @@
 //////////////////////////////////////////////////////////////////////////////
 package tetris.lib.game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import tetris.lib.blocks.Block;
 import tetris.lib.blocks.Empty;
@@ -98,7 +99,7 @@ public class Board extends BlockMatrix {
         for (int y = 0; y < matrix.length; y++) {
             for (int x = 0; x < matrix[y].length; x++) {
 
-                matrix[y][x] = new Empty();
+                matrix[y][x] = new Empty(new Color(255, 255, 255));
             }
         }
         generateRandomPiece();

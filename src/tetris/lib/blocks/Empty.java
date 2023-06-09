@@ -25,14 +25,17 @@ import java.awt.Color;
  * @author manso - computer
  */
 public class Empty extends Block {
+    public static Color colorPiece;
     
-    public Empty() {
-        super('.',Color.WHITE);
+    public Empty(Color color) {
+        super('.', color);
+        colorPiece = new Color(255, 255, 255, 50);
     }
 
     @Override
     public Block getClone() {
-        return new Empty();
+        return new Empty(colorPiece);
     }
 
+   
 }
