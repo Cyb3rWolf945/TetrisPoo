@@ -146,11 +146,8 @@ public class TetrisGame extends Board {
             }
         }
         if (isFull) {
-            Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\deletedLine.wav");
-            Path directoryPath = fullPath.getParent();
-            String finalPath = (directoryPath + "\\deletedLine.wav");
-
-            config.playLineSound(finalPath.replace("\\dist", ""));
+            
+            config.playLineSound(config.getFilePathDeletedLine());
             config.setVolume();
         }
     }

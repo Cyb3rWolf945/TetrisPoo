@@ -22,50 +22,28 @@ import tetris.lib.utils.SoundPlayer;
  * @author IPT
  */
 public class MainApp extends javax.swing.JFrame {
+    Configurations config = new Configurations();
     /**
      * Creates new form MainApp
      */
     public MainApp() {
         initComponents();
         setLocationRelativeTo(null);
-        
         JLabel background;
         setLayout(null);
-        String userDirectory = FileSystems.getDefault()
-                .getPath("")
-                .toAbsolutePath()
-                .toString();
-           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\menu.png"); 
-           Path directoryPathImage = fullPathImage.getParent();       
-           String finalPathImage = (directoryPathImage + "\\menu.png");
-           String finalPathIcon = (directoryPathImage + "\\icon.png");
-        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
-        setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
+        ImageIcon img = new ImageIcon(config.getFilePathMenuImage());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathIcon()));
         background = new JLabel("",img,JLabel.CENTER);
         background.setBounds(0,0,312,300);
         add(background);
         setVisible(true);
-        Configurations config = new Configurations();
         config.ReadConfig(config.getCurrentPath());
         SoundPlayer.actualVolume = config.getSound();
-        System.out.println(config.getCurrentPath());
-        
-        
-       if (SoundPlayer.clip == null){
-           Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\Tetris.wav"); 
-           Path directoryPath = fullPath.getParent();
-           String finalPath = (directoryPath + "\\Tetris.wav");
-           
-        
-           config.play(finalPath.replace("\\dist", ""));
-              System.out.println(finalPath);
+       if (SoundPlayer.clip == null){  
+           config.play(config.getFilePathTetrisMusic());
         } 
-        
         config.setVolume();
         GlobalVariables.currentDifficulty = config.getDifficulty();
-        System.out.println(config.getSound());
-        System.out.println(config.getVolumeToSlider());
-        System.out.println(SoundPlayer.clip);
     }
 
     /**

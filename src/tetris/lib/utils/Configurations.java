@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,8 +26,8 @@ public class Configurations extends SoundPlayer implements Config {
 
     private int lines;
     private int cols;
-    private float sound ;
-    private int difficulty ;
+    private float sound;
+    private int difficulty;
 
     /**
      * *
@@ -53,6 +55,7 @@ public class Configurations extends SoundPlayer implements Config {
     /**
      * *
      * Write config in the file for persistent memory.
+     *
      * @param files
      */
     public void WriteConfig(File files) {
@@ -73,6 +76,7 @@ public class Configurations extends SoundPlayer implements Config {
     /**
      * *
      * Read config from the file.
+     *
      * @param files
      */
     public void ReadConfig(File files) {
@@ -110,6 +114,56 @@ public class Configurations extends SoundPlayer implements Config {
             WriteConfig(getCurrentPath());
         }
 
+    }
+
+    public String getUserDirectory() {
+        String userDirectory = FileSystems.getDefault()
+                .getPath("")
+                .toAbsolutePath()
+                .toString();
+        return userDirectory;
+    }
+
+    public String getFilePathMenuImage() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\menu.png");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\menu.png");
+        return finalPathImage.replace("\\dist", "");
+    }
+
+    public String getFilePathGameImage() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\jogo.png");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\jogo.png");
+        return finalPathImage.replace("\\dist", "");
+    }
+
+    public String getFilePathIcon() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\icon.png");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\icon.png");
+        return finalPathImage.replace("\\dist", "");
+    }
+
+    public String getFilePathTetrisMusic() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\Tetris.wav");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\Tetris.wav");
+        return finalPathImage.replace("\\dist", "");
+    }
+
+    public String getFilePathPieceSound() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\piece.wav");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\piece.wav");
+        return finalPathImage.replace("\\dist", "");
+    }
+    
+    public String getFilePathDeletedLine() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\deletedLine.wav");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\deletedLine.wav");
+        return finalPathImage.replace("\\dist", "");
     }
 
     /**
@@ -181,15 +235,5 @@ public class Configurations extends SoundPlayer implements Config {
     public void ReadConfig() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
-    
-   
-
-    
-    
-
-    
-
-    
 
 }

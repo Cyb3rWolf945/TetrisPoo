@@ -36,18 +36,9 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
         jPanel1.setBackground(Color.WHITE);
         JLabel background;
         setLayout(null);
-        String userDirectory = FileSystems.getDefault()
-                .getPath("")
-                .toAbsolutePath()
-                .toString();
-
-        Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\jogo.png");
-        Path directoryPathImage = fullPathImage.getParent();
-
-        String finalPathIcon = (directoryPathImage + "\\icon.png");
-        String finalPathImage = (directoryPathImage + "\\jogo.png");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
-        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
+        
+        ImageIcon img = new ImageIcon(config.getFilePathGameImage());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathIcon()));
 
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 495, 420);
@@ -169,15 +160,7 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
                     if (!tetris.canMovePiece(1, 0)) {
                         tetris.freezePiece();
                         tetris.deleteFullLines();
-                        String userDirectory = FileSystems.getDefault()
-                                .getPath("")
-                                .toAbsolutePath()
-                                .toString();
-                        Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\piece.wav");
-
-                        Path directoryPath = fullPath.getParent();
-                        String finalPath = (directoryPath + "\\piece.wav");
-                        config.playPieceSound(finalPath.replace("\\dist", ""));
+                        config.playPieceSound(config.getFilePathPieceSound());
                         config.setVolume();
                         tetris.generateRandomPiece();
                         if (tetris.getScore() == 0) {
