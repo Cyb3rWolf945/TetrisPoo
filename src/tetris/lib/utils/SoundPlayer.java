@@ -45,7 +45,7 @@ public class SoundPlayer {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
             clipSoundPiece = AudioSystem.getClip();
             clipSoundPiece.open(audioInputStream);
-            clipSoundPiece.start();
+           
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e.getMessage());
         }
@@ -57,7 +57,7 @@ public class SoundPlayer {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
             clipSoundLine = AudioSystem.getClip();
             clipSoundLine.open(audioInputStream);
-            clipSoundLine.start();
+          
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e.getMessage());
         }
@@ -72,18 +72,33 @@ public class SoundPlayer {
         System.out.println(actualVolume);
     }
 
-    public void setVolume() {
-        
-        
+    public void setVolumeTetrisMusic() {
+       
         volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         volumeControl.setValue(actualVolume);
-        if (clipSoundLine != null ){
-        volumeControl = (FloatControl) clipSoundLine.getControl(FloatControl.Type.MASTER_GAIN);
-        volumeControl.setValue(actualVolume);
-        }
-         if (clipSoundPiece != null ){
+
+    }
+    
+     public void setVolumePieceSound() {
+        
+        if (clipSoundPiece != null ){
+            System.out.println(clipSoundLine); 
         volumeControl = (FloatControl) clipSoundPiece.getControl(FloatControl.Type.MASTER_GAIN);
         volumeControl.setValue(actualVolume);
+          
+          clipSoundPiece.start();
+        }
+        
+    }
+     
+      public void setVolumeLineSound() {
+        
+         if (clipSoundLine != null ){
+             
+        volumeControl = (FloatControl) clipSoundLine.getControl(FloatControl.Type.MASTER_GAIN);
+        volumeControl.setValue(actualVolume);
+          
+         clipSoundLine.start();
          }
     }
 

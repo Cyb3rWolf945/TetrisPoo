@@ -38,8 +38,8 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
         JLabel background;
         setLayout(null);
         
-        ImageIcon img = new ImageIcon(config.getFilePathGameImage());
-        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathIcon()));
+        ImageIcon img = new ImageIcon(config.getFilePathImage("jogo.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
 
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 495, 420);
@@ -167,14 +167,10 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
                     if (!tetris.canMovePiece(1, 0)) {
                         tetris.freezePiece();
                         tetris.deleteFullLines();
-                        config.playPieceSound(config.getFilePathPieceSound());
-                        config.setVolume();
+                        config.playPieceSound(config.getFilePathSound("piece.wav"));
+                        config.setVolumePieceSound();
                         tetris.generateRandomPiece();
-                        if (tetris.getScore() == 0) {
-                            tetris.setScore((int) (tetris.getScore() + 10));
-                        } else {
-                            tetris.setScore((int) (tetris.getScore() * tetris.getDifficultyBonus()));
-                        }
+                        tetris.setScore((int) (tetris.getScore() + 5 * tetris.getDifficultyBonus()));
                         GlobalVariables.jtext.setText(String.valueOf(tetris.getScore()));
                         GlobalVariables.currentScore = tetris.getScore();
                     }

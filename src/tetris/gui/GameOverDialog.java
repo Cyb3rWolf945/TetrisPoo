@@ -48,8 +48,8 @@ public class GameOverDialog extends javax.swing.JFrame {
         JLabel background;
         setLayout(null);
 
-        ImageIcon img = new ImageIcon(config.getFilePathGameOverImage());
-        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathIcon()));
+        ImageIcon img = new ImageIcon(config.getFilePathImage("gameover.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 330, 244);
         add(background);

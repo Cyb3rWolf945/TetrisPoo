@@ -10,7 +10,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
-import tetris.app.ClockTask;
 import tetris.gui.Configs;
 import tetris.gui.GameOverDialog;
 import tetris.gui.GraphicsTetrisDialog;
@@ -27,7 +26,7 @@ public class TetrisGame extends Board {
 
     Timer timer;
     private int Score = 0;
- 
+
     private Configurations config = new Configurations();
 
     public TetrisGame() {
@@ -46,8 +45,7 @@ public class TetrisGame extends Board {
                 timer.schedule(new MoveGame(), 0, 100);
         }
     }
- 
-    
+
     public void stopGame() {
         timer.cancel();
         //.........
@@ -55,42 +53,40 @@ public class TetrisGame extends Board {
     }
 
     public boolean isGameOver() {
-        return !canMovePiece(1, 0) && (current.getPositionY() == 1 || current.getPositionY() == 0 ||  current.getPositionY() == -1);
+        return !canMovePiece(1, 0) && (current.getPositionY() == 1 || current.getPositionY() == 0 || current.getPositionY() == -1);
 
     }
 
     private class MoveGame extends TimerTask {
-    private boolean isRunning = false;
+
+        private boolean isRunning = false;
+
         @Override
         public void run() {
-        if (isRunning) {
-            return; // Exit if the previous execution is still in progress
-        }
-
-        isRunning = true; // Set the flag to indicate the execution is in progress
-System.out.println(current.getPositionY());
-        if (isGameOver()) {
-            stopGame();
-            openGameOverDialog();
-        } else if (canMovePiece(1, 0)) {
-            moveDown();
-        } else {
-            freezePiece();
-            generateRandomPiece();
-            config.playPieceSound(config.getFilePathPieceSound());
-            config.setVolume();
-            if (getScore() == 0) {
-                setScore(10);
-            } else {
-                setScore((int) (getScore() * getDifficultyBonus()));
+            if (isRunning) {
+                return; // Exit if the previous execution is still in progress
             }
-            GlobalVariables.currentScore = getScore();
-            GlobalVariables.jtext.setText(String.valueOf(getScore()));
-        }
 
-        isRunning = false; // Reset the flag after the execution is completed
+            isRunning = true; // Set the flag to indicate the execution is in progress
+            System.out.println(current.getPositionY());
+            if (isGameOver()) {
+                stopGame();
+                openGameOverDialog();
+            } else if (canMovePiece(1, 0)) {
+                moveDown();
+            } else {
+                freezePiece();
+                generateRandomPiece();
+                config.playPieceSound(config.getFilePathSound("piece.wav"));
+                config.setVolumePieceSound();
+                setScore((int) (getScore() + 5 * getDifficultyBonus()));
+                GlobalVariables.currentScore = getScore();
+                GlobalVariables.jtext.setText(String.valueOf(getScore()));
+            }
+
+            isRunning = false; // Reset the flag after the execution is completed
+        }
     }
-}
 
     private void openGameOverDialog() {
         GlobalVariables.graphicsTetris.dispose();
@@ -112,11 +108,11 @@ System.out.println(current.getPositionY());
         float bonus = 0;
         switch (GlobalVariables.currentDifficulty) {
             case 0 ->
-                bonus = (float) 1.25;
-            case 1 ->
                 bonus = (float) 1.5;
+            case 1 ->
+                bonus = (float) 2;
             case 2 ->
-                bonus = (float) 1.65;
+                bonus = (float) 3;
         }
         return bonus;
     }
@@ -148,9 +144,9 @@ System.out.println(current.getPositionY());
             }
         }
         if (isFull) {
-            
-            config.playLineSound(config.getFilePathDeletedLine());
-            config.setVolume();
+
+            config.playLineSound(config.getFilePathSound("deletedLine.wav"));
+            config.setVolumeLineSound();
         }
     }
 

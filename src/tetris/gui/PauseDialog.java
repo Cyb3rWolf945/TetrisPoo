@@ -32,8 +32,8 @@ public class PauseDialog extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JLabel background;
         setLayout(null);
-        ImageIcon img = new ImageIcon(config.getFilePathPauseImage());
-        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathIcon()));
+        ImageIcon img = new ImageIcon(config.getFilePathImage("pausa.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
         background = new JLabel("", img, JLabel.CENTER);
         setSize(233,170);
         background.setBounds(0, 0, 223, 146);

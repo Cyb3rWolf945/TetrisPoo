@@ -31,8 +31,8 @@ public class MainApp extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         JLabel background;
         setLayout(null);
-        ImageIcon img = new ImageIcon(config.getFilePathMenuImage());
-        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathIcon()));
+        ImageIcon img = new ImageIcon(config.getFilePathImage("menu.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
         background = new JLabel("",img,JLabel.CENTER);
         background.setBounds(0,0,312,300);
         add(background);
@@ -40,9 +40,11 @@ public class MainApp extends javax.swing.JFrame {
         config.ReadConfig(config.getCurrentPath());
         SoundPlayer.actualVolume = config.getSound();
        if (SoundPlayer.clip == null){  
-           config.play(config.getFilePathTetrisMusic());
+           config.play(config.getFilePathSound("Tetris.wav"));
         } 
-        config.setVolume();
+        config.setVolumeTetrisMusic();
+        config.setVolumePieceSound();
+        config.setVolumeLineSound();
         GlobalVariables.currentDifficulty = config.getDifficulty();
     }
 

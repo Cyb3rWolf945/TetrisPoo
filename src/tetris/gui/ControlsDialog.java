@@ -27,15 +27,15 @@ public class ControlsDialog extends javax.swing.JFrame {
         setSize(386, 360);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-         String userDirectory = FileSystems.getDefault()
+        String userDirectory = FileSystems.getDefault()
                 .getPath("")
                 .toAbsolutePath()
                 .toString();
-           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\comandos.png"); 
-           Path directoryPathImage = fullPathImage.getParent();
-           String finalPathImage = (directoryPathImage + "\\comandos.png");
-           String finalPathIcon = (directoryPathImage + "\\icon.png");
-           setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
+        Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\comandos.png");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\comandos.png");
+        String finalPathIcon = (directoryPathImage + "\\icon.png");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
         ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 390, 330);

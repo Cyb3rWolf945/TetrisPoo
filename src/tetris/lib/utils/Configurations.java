@@ -124,61 +124,19 @@ public class Configurations extends SoundPlayer implements Config {
         return userDirectory;
     }
 
-    public String getFilePathMenuImage() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\menu.png");
+    public String getFilePathImage(String fileName) {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\" + fileName);
         Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\menu.png");
+        String finalPathImage = (directoryPathImage + "\\"+ fileName);
         return finalPathImage.replace("\\dist", "");
     }
 
-    public String getFilePathGameImage() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\jogo.png");
+    public String getFilePathSound(String fileName) {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\" + fileName);
         Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\jogo.png");
+        String finalPathImage = (directoryPathImage + "\\" + fileName);
         return finalPathImage.replace("\\dist", "");
     }
-    public String getFilePathGameOverImage() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\gameover.png");
-        Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\gameover.png");
-        return finalPathImage.replace("\\dist", "");
-    }
-    
-    public String getFilePathPauseImage() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\pausa.png");
-        Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\pausa.png");
-        return finalPathImage.replace("\\dist", "");
-    }
-
-    public String getFilePathIcon() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\icon.png");
-        Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\icon.png");
-        return finalPathImage.replace("\\dist", "");
-    }
-
-    public String getFilePathTetrisMusic() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\Tetris.wav");
-        Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\Tetris.wav");
-        return finalPathImage.replace("\\dist", "");
-    }
-
-    public String getFilePathPieceSound() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\piece.wav");
-        Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\piece.wav");
-        return finalPathImage.replace("\\dist", "");
-    }
-    
-    public String getFilePathDeletedLine() {
-        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\deletedLine.wav");
-        Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\deletedLine.wav");
-        return finalPathImage.replace("\\dist", "");
-    }
-
     /**
      * @return the lines
      */

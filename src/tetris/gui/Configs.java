@@ -19,37 +19,31 @@ import tetris.lib.utils.SoundPlayer;
  * @author Telmo
  */
 public class Configs extends javax.swing.JFrame {
- private SoundPlayer soundp;
+
+    private SoundPlayer soundp;
     private Configurations config;
     private Boolean isFirstTime = true;
+
     /**
      * Creates new form Config
+     *
      * @param config
      * @param soundp
      */
     public Configs(Configurations config, SoundPlayer soundp) {
-       
-         
+
         this.config = config;
         this.soundp = soundp;
-     
-        
+
         this.config.ReadConfig(config.getCurrentPath());
         initComponents();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-         setLocationRelativeTo(null);
-         setVisible(true);
-         JLabel background;
-          String userDirectory = FileSystems.getDefault()
-                .getPath("")
-                .toAbsolutePath()
-                .toString();
-           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\configs.png"); 
-           Path directoryPathImage = fullPathImage.getParent();
-           String finalPathImage = (directoryPathImage + "\\configs.png");
-            String finalPathIcon = (directoryPathImage + "\\icon.png");
-           setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
-        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
+        setLocationRelativeTo(null);
+        setVisible(true);
+        JLabel background;
+
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
+        ImageIcon img = new ImageIcon(config.getFilePathImage("configs.png"));
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 400, 353);
         add(background);
@@ -64,7 +58,7 @@ public class Configs extends javax.swing.JFrame {
         volumeMusic.setValue((int) this.soundp.getVolumeToSlider());
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
-        
+
     }
 
     /**
@@ -254,14 +248,14 @@ public class Configs extends javax.swing.JFrame {
         this.config.setDifficulty(1);
         volumeMusic.setValue(50);
         soundp.changeVolumeSlide(50);
-        soundp.setVolume();
+        soundp.setVolumeTetrisMusic();
         System.out.println("deu?");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
         System.out.println("valor mudou para: " + volumeMusic.getValue());
         this.config.changeVolumeSlide(volumeMusic.getValue());
-        this.config.setVolume();
+        this.config.setVolumeTetrisMusic();
     }//GEN-LAST:event_volumeMusicStateChanged
 
     private void RB_EasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_EasyActionPerformed
@@ -317,7 +311,7 @@ public class Configs extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
+
             }
         });
     }
