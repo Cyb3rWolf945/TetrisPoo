@@ -327,7 +327,7 @@ public class Configs extends javax.swing.JFrame {
         RB_Normal.setSelected(false);
 
         // Set the difficulty level to 1 (corresponding to RB_Normal)
-        this.config.setDifficulty(1);
+        this.config.setDifficulty(2);
     }//GEN-LAST:event_RB_HardActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
