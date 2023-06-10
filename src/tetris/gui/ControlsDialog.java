@@ -5,12 +5,10 @@
 package tetris.gui;
 
 import java.awt.Toolkit;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import tetris.lib.utils.Configurations;
 
 /**
  *
@@ -18,25 +16,28 @@ import javax.swing.JLabel;
  */
 public class ControlsDialog extends javax.swing.JFrame {
 
+    private Configurations config;
+
     /**
      * Creates new form RulesFormDialog
+     *
+     * @param config
      */
-    public ControlsDialog() {
+    public ControlsDialog(Configurations config) {
+        this.config = config;
         initComponents();
         JLabel background;
+
+        // Set the size and position of the dialog
         setSize(386, 360);
         setLocationRelativeTo(null);
+
+        // Set the close operation and icon image for the dialog
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        String userDirectory = FileSystems.getDefault()
-                .getPath("")
-                .toAbsolutePath()
-                .toString();
-        Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\comandos.png");
-        Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\comandos.png");
-        String finalPathIcon = (directoryPathImage + "\\icon.png");
-        setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
-        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.config.getFilePathImage("icon.png")));
+
+        // Set the background image for the dialog
+        ImageIcon img = new ImageIcon(this.config.getFilePathImage("comandos.png"));
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 390, 330);
         add(background);
@@ -76,8 +77,8 @@ public class ControlsDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        dispose();
-        new MainApp().setVisible(true);
+        dispose(); // Dispose the current dialog
+        new MainApp().setVisible(true); // Create a new instance of MainApp and set it as visible
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -115,11 +116,6 @@ public class ControlsDialog extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ControlsDialog().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

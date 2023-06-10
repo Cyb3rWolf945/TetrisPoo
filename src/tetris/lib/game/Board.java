@@ -1,4 +1,4 @@
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //::                                                                         ::
 //::     Antonio Manuel Rodrigues Manso                                      ::
 //::                                                                         ::
@@ -13,6 +13,7 @@
 //::                                                               (c)2023   ::
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //////////////////////////////////////////////////////////////////////////////
+
 package tetris.lib.game;
 
 import java.awt.Color;
@@ -25,10 +26,10 @@ import tetris.lib.pieces.Piece;
 import tetris.lib.utils.TetrisPiece;
 
 /**
+ * Represents a Tetris board with a floating piece.
+ * It extends the BlockMatrix class.
  * Created on 01/05/2023, 08:48:11
- *
- * represents a tetris board with a floating piece
- *
+ * 
  * @author IPT - computer
  * @version 1.0
  */
@@ -51,44 +52,44 @@ public class Board extends BlockMatrix {
     }
 
     /**
-     * Floating piece in the board
+     * The floating piece on the board.
      */
     Piece current;
 
+    /**
+     * Default constructor.
+     * Creates a board with default dimensions (30 lines, 20 columns).
+     */
     public Board() {
         this(30, 20);
     }
 
     /**
-     * Constructor
+     * Constructor with matrix and current piece.
      *
-     * @param mat matrix of board blocks
-     * @param current floating piece
+     * @param mat the matrix of board blocks
+     * @param current the floating piece
      */
     public Board(Block[][] mat, Piece current) {
-        super(mat); // call constructor of supercalsse
-        this.current = current.getClone(); // clone piece
+        super(mat);
+        this.current = current.getClone();
     }
 
     /**
-     * Copy constructor
+     * Copy constructor.
      *
-     * @param b board
+     * @param b the board
      */
     public Board(Board b) {
         this(b.matrix, b.current);
     }
 
-    public Board(int rows, int columns, String a) {
-        this(rows, columns);
-    }
-
     /**
-     * Constructor with dimensions<br>
-     * build a board with 2d board of empty pieces
+     * Constructor with dimensions.
+     * Builds a board with a 2D matrix of empty pieces.
      *
-     * @param lines number of lines
-     * @param columns number of columns
+     * @param lines the number of lines
+     * @param columns the number of columns
      */
     public Board(int lines, int columns) {
         resize(lines, columns);
@@ -99,7 +100,6 @@ public class Board extends BlockMatrix {
         this.matrix = new Block[lines][columns];
         for (int y = 0; y < matrix.length; y++) {
             for (int x = 0; x < matrix[y].length; x++) {
-
                 matrix[y][x] = new Empty(Color.BLACK);
             }
         }
@@ -107,27 +107,22 @@ public class Board extends BlockMatrix {
     }
 
     /**
-     * generate a random floating piece
+     * Generate a random floating piece.
      */
     public void generateRandomPiece() {
         this.current = TetrisPiece.generateRandom();
-        //update the position x of piece to the midle of the board
         this.current.setPositionX(getColmuns() / 2 - current.getColmuns() / 2);
-        //top of the board
         this.current.setPositionY(-1);
         repaint();
     }
 
     /**
-     * transfer the floating piece to the board
+     * Transfer the floating piece to the board.
      */
     public void freezePiece() {
-        //iterate blocks
         for (int y = 0; y < current.getLines(); y++) {
             for (int x = 0; x < current.getColmuns(); x++) {
-                //if block is not empty
                 if (!(current.getMatrix()[y][x] instanceof Empty)) {
-                    //freeze block
                     this.matrix[current.getPositionY() + y][current.getPositionX() + x] = current.getMatrix()[y][x];
                 }
             }
@@ -138,11 +133,8 @@ public class Board extends BlockMatrix {
     @Override
     public String toString() {
         StringBuilder txt = new StringBuilder();
-        //clone board
         Board tmp = new Board(this);
-        //freeze the floating piece
         tmp.freezePiece();
-        //get the board        
         for (int y = 0; y < getLines(); y++) {
             for (int x = 0; x < getColmuns(); x++) {
                 txt.append(tmp.matrix[y][x]);
@@ -153,75 +145,63 @@ public class Board extends BlockMatrix {
     }
 
     /**
-     * floating piece can move to
+     * Check if the floating piece can move in the specified direction.
      *
-     * @param dy displacement in y
-     * @param dx displacement ix
-     * @return
+     * @param dy the displacement in the y-axis
+     * @param dx the displacement in the x-axis
+     * @return true if the piece can move, false otherwise
      */
     public boolean canMovePiece(int dy, int dx) {
-        //iterate current piece block matrix
         for (int y = 0; y < current.getLines(); y++) {
             for (int x = 0; x < current.getColmuns(); x++) {
-                //if block is empty - continue to next
                 if (current.getMatrix()[y][x] instanceof Empty) {
                     continue;
                 }
-                //new position
                 int px = current.getPositionX() + x + dx;
                 int py = current.getPositionY() + y + dy;
-
-                //is within limits
                 if (px >= getColmuns() || px < 0 || py >= getLines() || py < 0
-                        //not Empty
                         || !(matrix[py][px] instanceof Empty)) {
-                    return false; // NOT MOVE
+                    return false;
                 }
             }
         }
-        return true; //CAN MOVE
+        return true;
     }
 
     /**
-     * Floating piece can rotate
+     * Check if the floating piece can rotate.
      *
-     * @return piece can rotate
+     * @return true if the piece can rotate, false otherwise
      */
     public boolean canRotatePiece() {
-    Piece clone = current.getClone(); // Create a clone of the current piece
-    clone.rotate(); // Rotate the cloned piece
+        Piece clone = current.getClone();
+        clone.rotate();
 
-    // Check if the cloned piece is outside the board
-    if (clone.getPositionX() + clone.getColmuns() > getColmuns() ||
-        clone.getPositionY() + clone.getLines() > getLines()) {
-        return false; // Piece is outside the board, rotation not possible
-    }
+        if (clone.getPositionX() + clone.getColmuns() > getColmuns() ||
+            clone.getPositionY() + clone.getLines() > getLines()) {
+            return false;
+        }
 
-    // Iterate over each block in the cloned piece
-    for (int y = 0; y < clone.getLines(); y++) {
-        for (int x = 0; x < clone.getColmuns(); x++) {
-            if (clone.getMatrix()[y][x] instanceof Empty) {
-                continue; // Empty block, continue to the next block
-            }
-
-            // Calculate the absolute position of the block on the board
-            int absoluteX = clone.getPositionX() + x;
-            int absoluteY = clone.getPositionY() + y;
-
-            // Check for collisions with other blocks on the board
-            if (absoluteX < 0 || absoluteX >= getColmuns() ||
-                absoluteY < 0 || absoluteY >= getLines() ||
-                !(matrix[absoluteY][absoluteX] instanceof Empty)) {
-                return false; // Collision detected, rotation not possible
+        for (int y = 0; y < clone.getLines(); y++) {
+            for (int x = 0; x < clone.getColmuns(); x++) {
+                if (clone.getMatrix()[y][x] instanceof Empty) {
+                    continue;
+                }
+                int absoluteX = clone.getPositionX() + x;
+                int absoluteY = clone.getPositionY() + y;
+                if (absoluteX < 0 || absoluteX >= getColmuns() ||
+                    absoluteY < 0 || absoluteY >= getLines() ||
+                    !(matrix[absoluteY][absoluteX] instanceof Empty)) {
+                    return false;
+                }
             }
         }
+
+        return true;
     }
 
-    return true; // No collisions detected, rotation is possible
-}
-
     /**
-     * move piece to left
+     * Move the floating piece to the left.
      */
     public void moveLeft() {
         if (canMovePiece(0, -1)) {
@@ -231,7 +211,7 @@ public class Board extends BlockMatrix {
     }
 
     /**
-     * move piece to right
+     * Move the floating piece to the right.
      */
     public void moveRight() {
         if (canMovePiece(0, 1)) {
@@ -241,7 +221,7 @@ public class Board extends BlockMatrix {
     }
 
     /**
-     * move piece down
+     * Move the floating piece down.
      */
     public void moveDown() {
         if (canMovePiece(1, 0)) {
@@ -251,7 +231,7 @@ public class Board extends BlockMatrix {
     }
 
     /**
-     * fall down the piece
+     * Move the floating piece all the way down.
      */
     public void fallDown() {
         while (canMovePiece(1, 0)) {
@@ -260,7 +240,7 @@ public class Board extends BlockMatrix {
     }
 
     /**
-     * rotate piece
+     * Rotate the floating piece.
      */
     public void rotate() {
         if (canRotatePiece()) {
@@ -269,7 +249,8 @@ public class Board extends BlockMatrix {
         }
     }
 
-    //encapsulation
+    // Getters and Setters
+
     public Piece getCurrent() {
         return current;
     }
@@ -277,10 +258,9 @@ public class Board extends BlockMatrix {
     public void setCurrent(Piece current) {
         this.current = current;
     }
-
-    //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     private static final long serialVersionUID = 202305010848L;
     //:::::::::::::::::::::::::::  Copyright(c) M@nso  2023  :::::::::::::::::::
     ///////////////////////////////////////////////////////////////////////////
-
 }
+

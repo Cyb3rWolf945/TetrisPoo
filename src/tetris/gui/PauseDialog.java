@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import tetris.lib.game.Board;
 import tetris.lib.game.TetrisGame;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.GlobalVariables;
@@ -20,27 +19,35 @@ import tetris.lib.utils.SoundPlayer;
  * @author Telmo
  */
 public class PauseDialog extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form PauseDialog
+     *
      * @param tetris
      * @param config
      */
     public PauseDialog(TetrisGame tetris, Configurations config) {
+        // Initialize components
         initComponents();
+
+        // Set the location of the frame to the center of the screen
         setLocationRelativeTo(null);
+
+        // Set the default close operation to dispose the frame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Create a background label with the specified image
         JLabel background;
         setLayout(null);
         ImageIcon img = new ImageIcon(config.getFilePathImage("pausa.png"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
         background = new JLabel("", img, JLabel.CENTER);
-        setSize(233,170);
+        setSize(233, 170);
         background.setBounds(0, 0, 223, 146);
         add(background);
-        
+
+        // Assign the 'tetris' instance to 'GlobalVariables.tetris'
         GlobalVariables.tetris = tetris;
-        
     }
 
     /**
@@ -86,20 +93,25 @@ public class PauseDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // Start playing the sound
         SoundPlayer.clip.start();
+
+        // Start the game with the current difficulty
         GlobalVariables.tetris.startGame(GlobalVariables.currentDifficulty);
+
+        // Reset the 'GlobalVariables.tetris' to null
         GlobalVariables.tetris = null;
     }//GEN-LAST:event_formWindowClosed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        switch (evt.getKeyCode()) {
-                case KeyEvent.VK_ESCAPE ->{
-                    dispose();
-                }
+        // Check if the 'Escape' key is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            dispose();  // Close the dialog
         }
     }//GEN-LAST:event_formKeyPressed
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
+        // Request focus for the current component and its window
         requestFocus();
         requestFocusInWindow();
     }//GEN-LAST:event_formWindowLostFocus
@@ -132,10 +144,9 @@ public class PauseDialog extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-       
     }
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

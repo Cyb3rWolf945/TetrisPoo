@@ -22,29 +22,51 @@ import tetris.lib.utils.SoundPlayer;
  * @author IPT
  */
 public class MainApp extends javax.swing.JFrame {
+
     Configurations config = new Configurations();
+
     /**
      * Creates new form MainApp
      */
     public MainApp() {
+        // Initialize components
         initComponents();
+
+        // Set the location of the frame relative to the center of the screen
         setLocationRelativeTo(null);
+
+        // Declare a JLabel variable for the background
         JLabel background;
+
+        // Set the layout to null (no layout manager)
         setLayout(null);
+
+        // Set the background image
         ImageIcon img = new ImageIcon(config.getFilePathImage("menu.png"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
-        background = new JLabel("",img,JLabel.CENTER);
-        background.setBounds(0,0,312,300);
+        background = new JLabel("", img, JLabel.CENTER);
+        background.setBounds(0, 0, 312, 300);
         add(background);
+
         setVisible(true);
+
+        // Read configuration
         config.ReadConfig(config.getCurrentPath());
+
+        // Set the actual volume for sound
         SoundPlayer.actualVolume = config.getSound();
-       if (SoundPlayer.clip == null){  
-           config.play(config.getFilePathSound("Tetris.wav"));
-        } 
+
+        // Play Tetris music if the clip is null
+        if (SoundPlayer.clip == null) {
+            config.play(config.getFilePathSound("Tetris.wav"));
+        }
+
+        // Set volume for Tetris music, piece sound, and line sound
         config.setVolumeTetrisMusic();
         config.setVolumePieceSound();
         config.setVolumeLineSound();
+
+        // Set the current difficulty
         GlobalVariables.currentDifficulty = config.getDifficulty();
     }
 
@@ -118,23 +140,42 @@ public class MainApp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPlayActionPerformed
+        // Close the current dialog
         dispose();
+
+        // Create a new instance of GraphicsTetrisDialog
         GraphicsTetrisDialog a = new GraphicsTetrisDialog();
+
+        // Assign the new instance to the GlobalVariables.graphicsTetris variable
         GlobalVariables.graphicsTetris = a;
+
+        // Set the new dialog as visible
         a.setVisible(true);
     }//GEN-LAST:event_btPlayActionPerformed
 
     private void btAbout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout1ActionPerformed
+        // Close the current dialog
         dispose();
-        new ControlsDialog().setVisible(true);
+
+        // Create a new instance of ControlsDialog and set it as visible
+        new ControlsDialog(config).setVisible(true);
     }//GEN-LAST:event_btAbout1ActionPerformed
 
     private void btAbout2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbout2ActionPerformed
+        // Close the current dialog
         dispose();
-        Configurations config = new Configurations(3,3,SoundPlayer.actualVolume, GlobalVariables.currentDifficulty);
+
+        // Create a new instance of Configurations with the specified parameters
+        Configurations config = new Configurations(3, 3, SoundPlayer.actualVolume, GlobalVariables.currentDifficulty);
+
+        // Create a new instance of SoundPlayer
         SoundPlayer soundp = new SoundPlayer();
+
+        // Output the value of SoundPlayer.clip to the console
         System.out.println(SoundPlayer.clip);
-        new Configs(config, soundp ).setVisible(true);
+
+        // Create a new instance of Configs and set it as visible
+        new Configs(config, soundp).setVisible(true);
     }//GEN-LAST:event_btAbout2ActionPerformed
 
     /**

@@ -7,9 +7,6 @@ package tetris.gui;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,30 +26,63 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
      * Creates new form GraphicsTetrisDialogs
      */
     public GraphicsTetrisDialog() {
+        // Initialize components
         initComponents();
+
+        // Set the location of the frame to the center of the screen
         setLocationRelativeTo(null);
+
+        // Set the size of the frame
         setSize(505, 460);
+
+        // Set the bounds of the tetris component
         tetris.setBounds(270, 28, 200, 350);
+
+        // Set the bounds of the jPanel1 component
         jPanel1.setBounds(73, 391, 70, 20);
+
+        // Set the background color of jPanel1
         jPanel1.setBackground(Color.WHITE);
+
+        // Create a JLabel for the background image
         JLabel background;
+
+        // Set the layout of the frame to null
         setLayout(null);
-        
+
+        // Load the image for the background
         ImageIcon img = new ImageIcon(config.getFilePathImage("jogo.png"));
+
+        // Set the frame icon
         setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
 
+        // Create a JLabel with the background image
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 495, 420);
         add(background);
-        
+
+        // Set the frame as visible
         setVisible(true);
+
+        // Set the default close operation of the frame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        // Read the configuration
         config.ReadConfig(config.getCurrentPath());
+
+        // Resize the tetris component based on the configuration
         tetris.resize(config.getLines(), config.getCols());
+
+        // Generate a random piece for the tetris component
         tetris.generateRandomPiece();
+
+        // Start the game with the configured difficulty
         tetris.startGame(config.getDifficulty());
 
+        // Assign the ScoreValue component to GlobalVariables.jtext
         GlobalVariables.jtext = ScoreValue;
+
+        // Set the frame as focusable and request focus
         setFocusable(true);
         requestFocus();
 
@@ -152,37 +182,57 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (!tetris.isGameOver() && GlobalVariables.tetris == null) {
-
             switch (evt.getKeyCode()) {
-                case KeyEvent.VK_ESCAPE ->{
+                case KeyEvent.VK_ESCAPE -> {
+                    // Show the pause dialog
                     new PauseDialog(tetris, config).setVisible(true);
+
+                    // Stop the sound clip
                     SoundPlayer.clip.stop();
+
+                    // Stop the game
                     tetris.stopGame();
                 }
                 case KeyEvent.VK_UP -> {
+                    // Rotate the tetris piece
                     tetris.rotate();
                 }
                 case KeyEvent.VK_DOWN -> {
+                    // Move the tetris piece down
                     tetris.moveDown();
+
+                    // Check if the piece can no longer move down
                     if (!tetris.canMovePiece(1, 0)) {
+                        // Freeze the piece in place
                         tetris.freezePiece();
+
+                        // Delete full lines and update the score
                         tetris.deleteFullLines();
+                        // Plays the piece sound
                         config.playPieceSound(config.getFilePathSound("piece.wav"));
                         config.setVolumePieceSound();
+
+                        // Generates Random Piece
                         tetris.generateRandomPiece();
+                        // Sets score
                         tetris.setScore((int) (tetris.getScore() + 5 * tetris.getDifficultyBonus()));
+
+                        // Updates global Variables
                         GlobalVariables.jtext.setText(String.valueOf(tetris.getScore()));
                         GlobalVariables.currentScore = tetris.getScore();
                     }
-
                 }
-                case KeyEvent.VK_LEFT ->
+                case KeyEvent.VK_LEFT -> {
+                    // Move the tetris piece to the left
                     tetris.moveLeft();
-                case KeyEvent.VK_RIGHT ->
+                }
+                case KeyEvent.VK_RIGHT -> {
+                    // Move the tetris piece to the right
                     tetris.moveRight();
+                }
             }
-
-        } else if (GlobalVariables.tetris == null){
+        } else if (GlobalVariables.tetris == null) {
+            // Close the dialog
             dispose();
         }
     }//GEN-LAST:event_formKeyPressed
@@ -193,14 +243,15 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         if (!tetris.isGameOver()) {
+            // Close the dialog
             dispose();
+
+            // Stop the game
             tetris.stopGame();
+
+            // Show the main application
             new MainApp().setVisible(true);
-
-        } else {
-
         }
-
     }//GEN-LAST:event_formWindowClosed
 
     /**

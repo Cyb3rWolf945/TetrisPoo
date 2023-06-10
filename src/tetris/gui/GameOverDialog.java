@@ -1,29 +1,15 @@
 package tetris.gui;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
-import tetris.gui.GameOverDialog;
-import tetris.gui.GraphicsTetrisDialog;
-import tetris.gui.MainApp;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.GlobalVariables;
 
@@ -44,29 +30,36 @@ public class GameOverDialog extends javax.swing.JFrame {
      * Creates new form GameOverDialogs
      */
     public GameOverDialog() {
-        initComponents();
-        JLabel background;
-        setLayout(null);
+        initComponents(); // Initialize components
 
+        JLabel background;
+        setLayout(null); // Set null layout
+
+        // Set icon image
         ImageIcon img = new ImageIcon(config.getFilePathImage("gameover.png"));
         setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
+
+        // Create and configure background label
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 330, 244);
-        add(background);
+        add(background); // Add background label to the dialog
 
+        // Set text for jLabel1
         jLabel1.setText(String.valueOf(GlobalVariables.currentScore));
+
+        // Add window listener to handle window closing event
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                dispose();  // Close the dialog
-                new MainApp().setVisible(true);
+                dispose(); // Close the dialog
+                new MainApp().setVisible(true); // Create a new instance of MainApp and set it as visible
             }
         });
 
         // Set dialog properties
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(338, 282);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Center the dialog on the screen
 
     }
 
@@ -154,14 +147,21 @@ public class GameOverDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BT_PlayAgainMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_PlayAgainMouseClicked
-        dispose();  // Close the dialog
+        dispose(); // Close the dialog
+
+        // Create a new instance of GraphicsTetrisDialog
         GraphicsTetrisDialog a = new GraphicsTetrisDialog();
+
+        // Set the newly created instance as the value of GlobalVariables.graphicsTetris
         GlobalVariables.graphicsTetris = a;
-        a.setVisible(true);
+
+        a.setVisible(true); // Set the GraphicsTetrisDialog instance as visible
     }//GEN-LAST:event_BT_PlayAgainMouseClicked
 
     private void BT_MenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BT_MenuMouseClicked
-        dispose();  // Close the dialog
+        dispose(); // Close the dialog
+
+        // Create a new instance of MainApp and set it as visible
         new MainApp().setVisible(true);
     }//GEN-LAST:event_BT_MenuMouseClicked
     @Override

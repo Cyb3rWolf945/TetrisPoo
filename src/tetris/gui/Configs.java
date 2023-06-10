@@ -5,9 +5,6 @@
 package tetris.gui;
 
 import java.awt.Toolkit;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,18 +32,31 @@ public class Configs extends javax.swing.JFrame {
         this.config = config;
         this.soundp = soundp;
 
+        // Read the configuration from a file
         this.config.ReadConfig(config.getCurrentPath());
+
+        // Initialize GUI components
         initComponents();
+
+        // Set the default close operation, location, and visibility of the frame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+
         JLabel background;
 
-        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathImage("icon.png")));
-        ImageIcon img = new ImageIcon(config.getFilePathImage("configs.png"));
+        // Set the icon image of the frame
+        setIconImage(Toolkit.getDefaultToolkit().getImage(this.config.getFilePathImage("icon.png")));
+
+        // Create an image icon using the specified image file
+        ImageIcon img = new ImageIcon(this.config.getFilePathImage("configs.png"));
+
+        // Create a JLabel with the image icon and add it to the frame
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 400, 353);
         add(background);
+
+        // Set the selected radio button based on the difficulty value
         switch (this.config.getDifficulty()) {
             case 0 ->
                 RB_Easy.setSelected(true);
@@ -55,7 +65,11 @@ public class Configs extends javax.swing.JFrame {
             case 2 ->
                 RB_Hard.setSelected(true);
         }
+
+        // Set the value of the volume slider
         volumeMusic.setValue((int) this.soundp.getVolumeToSlider());
+
+        // Set the values of the lines and cols input fields
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
 
@@ -227,40 +241,70 @@ public class Configs extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BT_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BT_SaveActionPerformed
+        // Get the values of lines and cols from the input fields
         int liness = (Integer) lines.getValue();
         int colss = (Integer) cols.getValue();
-        float sound = (float) volumeMusic.getValue();
+        // Update the configuration with the new values
         this.config.setLines(liness);
         this.config.setCols(colss);
         this.config.setSound(SoundPlayer.actualVolume);
+        // Write the updated configuration to the file
         this.config.WriteConfig(config.getCurrentPath());
+        // Close the current frame
         dispose();
     }//GEN-LAST:event_BT_SaveActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Set the lines and cols to a specific value
         this.config.setLines(10);
         this.config.setCols(10);
+
+        // Update the values of the lines and cols input fields
         lines.setValue(this.config.getLines());
         cols.setValue(this.config.getCols());
+
+        // Set the RB_Normal radio button as selected
         RB_Normal.setSelected(true);
+
+        // Set the RB_Easy and RB_Hard radio buttons as not selected
         RB_Easy.setSelected(false);
         RB_Hard.setSelected(false);
+
+        // Set the difficulty to 1 (assuming 1 represents normal difficulty)
         this.config.setDifficulty(1);
+
+        // Set the volumeMusic slider value to 50
         volumeMusic.setValue(50);
+
+        // Change the volume of the sound player to match the slider value
         soundp.changeVolumeSlide(50);
+
+        // Set the volume of the Tetris music in the sound player
         soundp.setVolumeTetrisMusic();
-        System.out.println("deu?");
+
+        // Print "deu?" to the console (commented out)
+        // System.out.println("deu?");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void volumeMusicStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_volumeMusicStateChanged
-        System.out.println("valor mudou para: " + volumeMusic.getValue());
+        // Print the current value of the volumeMusic slider to the console
+        // System.out.println("valor mudou para: " + volumeMusic.getValue());
+
+        // Update the configuration with the new volume value from the slider
         this.config.changeVolumeSlide(volumeMusic.getValue());
+
+        // Set the volume of the Tetris music in the configuration
         this.config.setVolumeTetrisMusic();
     }//GEN-LAST:event_volumeMusicStateChanged
 
     private void RB_EasyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_EasyActionPerformed
+        // Deselect the RB_Hard radio button
         RB_Hard.setSelected(false);
+
+        // Deselect the RB_Normal radio button
         RB_Normal.setSelected(false);
+
+        // Set the difficulty level to 0 (corresponding to RB_Easy)
         this.config.setDifficulty(0);
     }//GEN-LAST:event_RB_EasyActionPerformed
 
@@ -271,12 +315,18 @@ public class Configs extends javax.swing.JFrame {
     }//GEN-LAST:event_RB_NormalActionPerformed
 
     private void RB_HardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_HardActionPerformed
+        // Deselect the RB_Easy radio button
         RB_Easy.setSelected(false);
-        RB_Normal.setSelected(false);
-        this.config.setDifficulty(2);
+
+        // Deselect the RB_Hard radio button
+        RB_Hard.setSelected(false);
+
+        // Set the difficulty level to 1 (corresponding to RB_Normal)
+        this.config.setDifficulty(1);
     }//GEN-LAST:event_RB_HardActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // Create a new instance of the MainApp class and set its visibility to true
         new MainApp().setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 

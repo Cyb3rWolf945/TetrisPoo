@@ -19,8 +19,7 @@ import java.util.logging.Logger;
 import tetris.interfaces.Config;
 
 /**
- *
- * @author ajose
+ * The Configurations class handles the configuration settings of the Tetris game.
  */
 public class Configurations extends SoundPlayer implements Config {
 
@@ -30,20 +29,19 @@ public class Configurations extends SoundPlayer implements Config {
     private int difficulty;
 
     /**
-     * *
-     * Empty constructor
+     * Empty constructor.
      */
     public Configurations() {
         this(10, 10, -30, 1);
     }
 
     /**
-     * *
+     * Constructor with specified configuration values.
      *
-     * @param lines
-     * @param cols
-     * @param sound
-     * @param difficulty
+     * @param lines      the number of lines
+     * @param cols       the number of columns
+     * @param sound      the sound value
+     * @param difficulty the difficulty level
      */
     public Configurations(int lines, int cols, float sound, int difficulty) {
         this.lines = lines;
@@ -53,10 +51,9 @@ public class Configurations extends SoundPlayer implements Config {
     }
 
     /**
-     * *
-     * Write config in the file for persistent memory.
+     * Writes the configuration to a file for persistent memory.
      *
-     * @param files
+     * @param files the file to write the configuration to
      */
     public void WriteConfig(File files) {
         try {
@@ -70,14 +67,13 @@ public class Configurations extends SoundPlayer implements Config {
 
             System.out.println("Data written to the file.");
         } catch (IOException e) {
-        }        // TODO add your handling c
+        }
     }
 
     /**
-     * *
-     * Read config from the file.
+     * Reads the configuration from a file.
      *
-     * @param files
+     * @param files the file to read the configuration from
      */
     public void ReadConfig(File files) {
         if (files.exists()) {
@@ -116,6 +112,11 @@ public class Configurations extends SoundPlayer implements Config {
 
     }
 
+    /**
+     * Retrieves the user directory path.
+     *
+     * @return the user directory path
+     */
     public String getUserDirectory() {
         String userDirectory = FileSystems.getDefault()
                 .getPath("")
@@ -124,6 +125,12 @@ public class Configurations extends SoundPlayer implements Config {
         return userDirectory;
     }
 
+    /**
+     * Retrieves the file path for an image.
+     *
+     * @param fileName the image file name
+     * @return the file path for the image
+     */
     public String getFilePathImage(String fileName) {
         Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\" + fileName);
         Path directoryPathImage = fullPathImage.getParent();
@@ -131,26 +138,96 @@ public class Configurations extends SoundPlayer implements Config {
         return finalPathImage.replace("\\dist", "");
     }
 
+    /**
+     * Retrieves the file path for a sound file.
+     *
+     * @param fileName the sound file name
+     * @return the file path for the sound file
+     */
     public String getFilePathSound(String fileName) {
         Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\" + fileName);
         Path directoryPathImage = fullPathImage.getParent();
         String finalPathImage = (directoryPathImage + "\\" + fileName);
         return finalPathImage.replace("\\dist", "");
     }
+
     /**
-     * @return the lines
+     * Retrieves the current number of lines.
+     *
+     * @return the number of lines
      */
     public int getLines() {
         return lines;
     }
 
     /**
-     * @return the cols
+     * Retrieves the current number of columns.
+     *
+     * @return the number of columns
      */
     public int getCols() {
         return cols;
     }
 
+    /**
+     * Retrieves the current difficulty level.
+     *
+     * @return the difficulty level
+     */
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    /**
+     * Sets the difficulty level to the specified value.
+     *
+     * @param diff the difficulty level to set
+     */
+    public void setDifficulty(int diff) {
+        difficulty = diff;
+    }
+
+    /**
+     * Retrieves the current sound value.
+     *
+     * @return the sound value
+     */
+    public float getSound() {
+        return sound;
+    }
+
+    /**
+     * Sets the number of lines to the specified value.
+     *
+     * @param lines the number of lines to set
+     */
+    public void setLines(int lines) {
+        this.lines = lines;
+    }
+
+    /**
+     * Sets the number of columns to the specified value.
+     *
+     * @param cols the number of columns to set
+     */
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
+
+    /**
+     * Sets the sound value to the specified value.
+     *
+     * @param sound the sound value to set
+     */
+    public void setSound(float sound) {
+        this.sound = sound;
+    }
+
+    /**
+     * Retrieves the current path.
+     *
+     * @return the current path
+     */
     public File getCurrentPath() {
         String userDirectory = FileSystems.getDefault()
                 .getPath("")
@@ -159,42 +236,6 @@ public class Configurations extends SoundPlayer implements Config {
         File files = new File(userDirectory + "\\config");
 
         return files;
-    }
-
-    public int getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(int diff) {
-        difficulty = diff;
-    }
-
-    /**
-     * @return the sound
-     */
-    public float getSound() {
-        return sound;
-    }
-
-    /**
-     * @param lines the lines to set
-     */
-    public void setLines(int lines) {
-        this.lines = lines;
-    }
-
-    /**
-     * @param cols the cols to set
-     */
-    public void setCols(int cols) {
-        this.cols = cols;
-    }
-
-    /**
-     * @param sound the sound to set
-     */
-    public void setSound(float sound) {
-        this.sound = sound;
     }
 
     @Override

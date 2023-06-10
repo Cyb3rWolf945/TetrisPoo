@@ -19,8 +19,7 @@ import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
 
 /**
- *
- * @author ajose
+ * The TetrisGame class represents the main game logic of the Tetris game.
  */
 public class TetrisGame extends Board {
 
@@ -31,9 +30,13 @@ public class TetrisGame extends Board {
 
     public TetrisGame() {
         super();
-
     }
 
+    /**
+     * Starts the game with the specified difficulty level.
+     *
+     * @param diff the difficulty level (0 = easy, 1 = medium, 2 = hard)
+     */
     public void startGame(int diff) {
         timer = new Timer();
         switch (diff) {
@@ -46,17 +49,27 @@ public class TetrisGame extends Board {
         }
     }
 
+    /**
+     * Stops the game.
+     */
     public void stopGame() {
         timer.cancel();
         //.........
-
     }
 
+    /**
+     * Checks if the game is over.
+     *
+     * @return true if the game is over, false otherwise
+     */
     public boolean isGameOver() {
         return !canMovePiece(1, 0) && (current.getPositionY() == 1 || current.getPositionY() == 0 || current.getPositionY() == -1);
-
     }
 
+    /**
+     * The MoveGame class is a TimerTask responsible for moving the game pieces
+     * down at regular intervals.
+     */
     private class MoveGame extends TimerTask {
 
         private boolean isRunning = false;
@@ -68,7 +81,7 @@ public class TetrisGame extends Board {
             }
 
             isRunning = true; // Set the flag to indicate the execution is in progress
-            System.out.println(current.getPositionY());
+            //  System.out.println(current.getPositionY());
             if (isGameOver()) {
                 stopGame();
                 openGameOverDialog();
@@ -88,12 +101,21 @@ public class TetrisGame extends Board {
         }
     }
 
+    /**
+     * Opens the game over dialog.
+     */
     private void openGameOverDialog() {
         GlobalVariables.graphicsTetris.dispose();
         GameOverDialog gameOverDialog = new GameOverDialog();
         gameOverDialog.setVisible(true);
     }
 
+    /**
+     * Checks if a line in the game board is full.
+     *
+     * @param line the line index
+     * @return true if the line is full, false otherwise
+     */
     public boolean isLineFull(int line) {
         for (int x = 0; x < matrix[line].length; x++) {
             if (matrix[line][x] instanceof Empty) {
@@ -101,9 +123,13 @@ public class TetrisGame extends Board {
             }
         }
         return true;
-
     }
 
+    /**
+     * Returns the difficulty bonus based on the current difficulty level.
+     *
+     * @return the difficulty bonus
+     */
     public float getDifficultyBonus() {
         float bonus = 0;
         switch (GlobalVariables.currentDifficulty) {
@@ -117,59 +143,70 @@ public class TetrisGame extends Board {
         return bonus;
     }
 
+    /**
+     * Deletes a line from the game board and updates the score.
+     *
+     * @param line the line index to delete
+     */
     public void deleteLine(int line) {
-        //fall down all columns above line
-        for (int y = line; y > 0; y--) //copy line y
-        {
+        // Fall down all columns above the line
+        for (int y = line; y > 0; y--) {
             for (int x = 0; x < matrix[y].length; x++) {
                 matrix[y][x] = matrix[y - 1][x];
             }
         }
-        //put an empty line in the first line
+        // Put an empty line in the first line
         for (int x = 0; x < matrix[0].length; x++) {
             matrix[0][x] = new Empty(Color.BLACK);
         }
         this.Score += 100;
     }
 
+    /**
+     * Deletes all full lines from the game board and updates the score.
+     */
     public void deleteFullLines() {
         boolean isFull = false;
-        //iterate lines from bottom
+        // Iterate lines from bottom
         for (int y = matrix.length - 1; y > 0; y--) {
             while (isLineFull(y)) {
-                //delete line
+                // Delete line
                 deleteLine(y);
                 isFull = true;
-
             }
         }
         if (isFull) {
-
             config.playLineSound(config.getFilePathSound("deletedLine.wav"));
             config.setVolumeLineSound();
         }
     }
 
+    /**
+     * Freezes the current piece onto the game board and performs line clearing.
+     */
     @Override
     public void freezePiece() {
-        //call freeze of board
+        // Call freeze of board
         super.freezePiece();
-        //delete lines
+        // Delete full lines
         deleteFullLines();
     }
 
     /**
-     * @return the Score
+     * Retrieves the current score.
+     *
+     * @return the current score
      */
     public int getScore() {
         return Score;
     }
 
     /**
-     * @param Score the Score to set
+     * Sets the score to the specified value.
+     *
+     * @param Score the score to set
      */
     public void setScore(int Score) {
         this.Score = Score;
     }
-
 }
