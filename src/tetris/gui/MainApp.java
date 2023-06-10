@@ -172,7 +172,7 @@ public class MainApp extends javax.swing.JFrame {
         SoundPlayer soundp = new SoundPlayer();
 
         // Output the value of SoundPlayer.clip to the console
-        System.out.println(SoundPlayer.clip);
+        // System.out.println(SoundPlayer.clip);
 
         // Create a new instance of Configs and set it as visible
         new Configs(config, soundp).setVisible(true);

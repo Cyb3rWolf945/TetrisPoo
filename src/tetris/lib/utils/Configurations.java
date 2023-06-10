@@ -65,8 +65,9 @@ public class Configurations extends SoundPlayer implements Config {
 
             bufferedWriter.write(this.getLines() + "\n" + this.getCols() + "\n" + this.getSound() + "\n" + this.getDifficulty());
 
-            System.out.println("Data written to the file.");
+            //System.out.println("Data written to the file.");
         } catch (IOException e) {
+             System.out.println(e.getMessage());
         }
     }
 
@@ -99,12 +100,14 @@ public class Configurations extends SoundPlayer implements Config {
                     counter += 1;
                 }
             } catch (IOException e) {
+                 System.out.println(e.getMessage());
             }
         } else {
             try {
                 files.createNewFile();
             } catch (IOException ex) {
                 Logger.getLogger(Configurations.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
 
             WriteConfig(getCurrentPath());

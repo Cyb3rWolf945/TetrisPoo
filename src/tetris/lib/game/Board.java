@@ -18,7 +18,6 @@ package tetris.lib.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import javax.swing.BorderFactory;
 import tetris.lib.blocks.Block;
 import tetris.lib.blocks.Empty;
 import tetris.lib.blocks.BlockMatrix;

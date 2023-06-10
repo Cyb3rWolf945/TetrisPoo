@@ -5,18 +5,12 @@
 package tetris.lib.game;
 
 import java.awt.Color;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
-import tetris.gui.Configs;
 import tetris.gui.GameOverDialog;
-import tetris.gui.GraphicsTetrisDialog;
 import tetris.lib.utils.GlobalVariables;
 import tetris.lib.blocks.Empty;
 import tetris.lib.utils.Configurations;
-import tetris.lib.utils.SoundPlayer;
 
 /**
  * The TetrisGame class represents the main game logic of the Tetris game.
