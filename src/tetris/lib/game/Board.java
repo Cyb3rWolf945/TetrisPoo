@@ -60,7 +60,7 @@ public class Board extends BlockMatrix {
      * Creates a board with default dimensions (30 lines, 20 columns).
      */
     public Board() {
-        this(30, 20);
+        this(10, 10);
     }
 
     /**

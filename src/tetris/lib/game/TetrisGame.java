@@ -40,6 +40,7 @@ public class TetrisGame extends Board {
                 timer.schedule(new MoveGame(), 0, 300);
             case 2 ->
                 timer.schedule(new MoveGame(), 0, 100);
+            default -> timer.schedule(new MoveGame(), 0, 300);   
         }
     }
 
@@ -133,6 +134,8 @@ public class TetrisGame extends Board {
                 bonus = (float) 2;
             case 2 ->
                 bonus = (float) 3;
+            default ->
+                bonus = (float) 2;
         }
         return bonus;
     }

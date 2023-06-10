@@ -55,7 +55,8 @@ public class MainApp extends javax.swing.JFrame {
 
         // Set the actual volume for sound
         SoundPlayer.actualVolume = config.getSound();
-
+        System.out.println(config.getSound());
+        System.out.println(SoundPlayer.actualVolume);
         // Play Tetris music if the clip is null
         if (SoundPlayer.clip == null) {
             config.play(config.getFilePathSound("Tetris.wav"));
@@ -166,7 +167,7 @@ public class MainApp extends javax.swing.JFrame {
         dispose();
 
         // Create a new instance of Configurations with the specified parameters
-        Configurations config = new Configurations(3, 3, SoundPlayer.actualVolume, GlobalVariables.currentDifficulty);
+        Configurations config = new Configurations(this.config.getLines(), this.config.getCols(), SoundPlayer.actualVolume, GlobalVariables.currentDifficulty);
 
         // Create a new instance of SoundPlayer
         SoundPlayer soundp = new SoundPlayer();

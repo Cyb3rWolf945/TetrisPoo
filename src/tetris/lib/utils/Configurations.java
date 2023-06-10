@@ -19,7 +19,8 @@ import java.util.logging.Logger;
 import tetris.interfaces.Config;
 
 /**
- * The Configurations class handles the configuration settings of the Tetris game.
+ * The Configurations class handles the configuration settings of the Tetris
+ * game.
  */
 public class Configurations extends SoundPlayer implements Config {
 
@@ -38,9 +39,9 @@ public class Configurations extends SoundPlayer implements Config {
     /**
      * Constructor with specified configuration values.
      *
-     * @param lines      the number of lines
-     * @param cols       the number of columns
-     * @param sound      the sound value
+     * @param lines the number of lines
+     * @param cols the number of columns
+     * @param sound the sound value
      * @param difficulty the difficulty level
      */
     public Configurations(int lines, int cols, float sound, int difficulty) {
@@ -67,7 +68,7 @@ public class Configurations extends SoundPlayer implements Config {
 
             //System.out.println("Data written to the file.");
         } catch (IOException e) {
-             System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 
@@ -79,28 +80,58 @@ public class Configurations extends SoundPlayer implements Config {
     public void ReadConfig(File files) {
         if (files.exists()) {
             int counter = 0;
-
+            int test = 0;
             try (FileReader fileReader = new FileReader(files); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
+                    try {
+                        switch (counter) {
+                            case 0:
+                                if (Integer.parseInt(line) < 8 || Integer.parseInt(line) > 30) {
+                                    this.setLines(10);
+                                } else {
+                                    this.setLines(Integer.parseInt(line));
+                                }
+                                break;
+                            case 1:
+                                if (Integer.parseInt(line) < 8 || Integer.parseInt(line) > 30) {
+                                    this.setCols(10);
+                                } else {
+                                    this.setLines(Integer.parseInt(line));
+                                }
+                                break;
+                            case 2:
+                                if (Integer.parseInt(line) < -80.0 || Integer.parseInt(line) > 6.0205994) {
+                                    this.setSound(-30);
+                                } else {
+                                    this.setSound(Float.parseFloat(line));
+                                }
+                                break;
 
-                    switch (counter) {
-                        case 0 ->
-                            this.setLines(Integer.parseInt(line));
+                            case 3:
+                                if (Integer.parseInt(line) <0 || Integer.parseInt(line) > 2) {
+                                    this.setDifficulty(1);
+                                } else {
+                                    this.setDifficulty(Integer.parseInt(line));
+                                }
+                                break;
+                        }
 
-                        case 1 ->
-                            this.setCols(Integer.parseInt(line));
-
-                        case 2 ->
-                            this.setSound(Float.parseFloat(line));
-                        case 3 ->
-                            this.setDifficulty(Integer.parseInt(line));
+                    } catch (NumberFormatException e) {
+                        System.out.println(e.getMessage());
+                        this.setLines(10);
+                        this.setCols(10);
+                        this.setSound(-30);
+                        this.setDifficulty(1);
+                        WriteConfig(getCurrentPath());
                     }
+
                     counter += 1;
                 }
             } catch (IOException e) {
-                 System.out.println(e.getMessage());
+
+                System.out.println(e.getMessage());
             }
         } else {
             try {
@@ -137,7 +168,7 @@ public class Configurations extends SoundPlayer implements Config {
     public String getFilePathImage(String fileName) {
         Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\" + fileName);
         Path directoryPathImage = fullPathImage.getParent();
-        String finalPathImage = (directoryPathImage + "\\"+ fileName);
+        String finalPathImage = (directoryPathImage + "\\" + fileName);
         return finalPathImage.replace("\\dist", "");
     }
 
@@ -187,7 +218,7 @@ public class Configurations extends SoundPlayer implements Config {
      * @param diff the difficulty level to set
      */
     public void setDifficulty(int diff) {
-        difficulty = diff;
+        this.difficulty = diff;
     }
 
     /**

@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.SoundPlayer;
 
@@ -37,7 +38,7 @@ public class Configs extends javax.swing.JFrame {
 
         // Initialize GUI components
         initComponents();
-
+        setSize(405, 395);
         // Set the default close operation, location, and visibility of the frame
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -53,7 +54,7 @@ public class Configs extends javax.swing.JFrame {
 
         // Create a JLabel with the image icon and add it to the frame
         background = new JLabel("", img, JLabel.CENTER);
-        background.setBounds(0, 0, 400, 353);
+        background.setBounds(0, 0, 390, 355);
         add(background);
 
         // Set the selected radio button based on the difficulty value
@@ -64,6 +65,8 @@ public class Configs extends javax.swing.JFrame {
                 RB_Normal.setSelected(true);
             case 2 ->
                 RB_Hard.setSelected(true);
+            default ->
+                RB_Normal.setSelected(true);
         }
 
         // Set the value of the volume slider
@@ -105,11 +108,18 @@ public class Configs extends javax.swing.JFrame {
         });
 
         lines.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lines.setModel(new javax.swing.SpinnerNumberModel(20, 8, null, 1));
-        lines.setBorder(javax.swing.BorderFactory.createTitledBorder("Lines"));
+        lines.setModel(new javax.swing.SpinnerNumberModel(20, 8, 30, 1));
+        lines.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lines", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         lines.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lines.setFocusable(false);
         lines.setRequestFocusEnabled(false);
+        lines.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                linesInputMethodTextChanged(evt);
+            }
+        });
 
         BT_Save.setText("Save");
         BT_Save.addActionListener(new java.awt.event.ActionListener() {
@@ -164,11 +174,18 @@ public class Configs extends javax.swing.JFrame {
         });
 
         cols.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        cols.setModel(new javax.swing.SpinnerNumberModel(20, 8, null, 1));
-        cols.setBorder(javax.swing.BorderFactory.createTitledBorder("Cols"));
+        cols.setModel(new javax.swing.SpinnerNumberModel(10, 8, 30, 1));
+        cols.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cols", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         cols.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         cols.setFocusable(false);
         cols.setRequestFocusEnabled(false);
+        cols.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                colsInputMethodTextChanged(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,12 +204,12 @@ public class Configs extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(lines, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(50, 50, 50)
-                                .addComponent(cols, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                .addComponent(cols)
                                 .addGap(83, 83, 83))
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(BT_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(91, 91, 91))
@@ -234,8 +251,6 @@ public class Configs extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
-
-        cols.getAccessibleContext().setAccessibleName("Cols");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -309,7 +324,7 @@ public class Configs extends javax.swing.JFrame {
     }//GEN-LAST:event_RB_EasyActionPerformed
 
     private void RB_NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_NormalActionPerformed
-         // Deselect the RB_Easy radio button
+        // Deselect the RB_Easy radio button
         RB_Easy.setSelected(false);
 
         // Deselect the RB_Hard radio button
@@ -334,6 +349,23 @@ public class Configs extends javax.swing.JFrame {
         // Create a new instance of the MainApp class and set its visibility to true
         new MainApp().setVisible(true);
     }//GEN-LAST:event_formWindowClosed
+
+    private void linesInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_linesInputMethodTextChanged
+        int value = Integer.parseInt((String) lines.getValue());  // Convert to int if needed
+
+        if (value < 8 || value > 30) {
+            lines.setValue(this.config.getLines());
+        }
+
+    }//GEN-LAST:event_linesInputMethodTextChanged
+
+    private void colsInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_colsInputMethodTextChanged
+        int value = Integer.parseInt((String) cols.getValue());  // Convert to int if needed
+
+        if (value < 8 || value > 30) {
+            cols.setValue(this.config.getCols());
+        }
+    }//GEN-LAST:event_colsInputMethodTextChanged
 
     /**
      * @param args the command line arguments
