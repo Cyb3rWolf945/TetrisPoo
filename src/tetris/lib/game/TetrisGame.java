@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
+import tetris.app.ClockTask;
 import tetris.gui.Configs;
 import tetris.gui.GameOverDialog;
 import tetris.gui.GraphicsTetrisDialog;
@@ -26,10 +27,7 @@ public class TetrisGame extends Board {
 
     Timer timer;
     private int Score = 0;
-    private String userDirectory = FileSystems.getDefault()
-            .getPath("")
-            .toAbsolutePath()
-            .toString();
+ 
     private Configurations config = new Configurations();
 
     public TetrisGame() {
@@ -48,7 +46,8 @@ public class TetrisGame extends Board {
                 timer.schedule(new MoveGame(), 0, 100);
         }
     }
-
+ 
+    
     public void stopGame() {
         timer.cancel();
         //.........
@@ -73,10 +72,7 @@ public class TetrisGame extends Board {
             } else {
                 freezePiece();
                 generateRandomPiece();
-                Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\piece.wav");
-                Path directoryPath = fullPath.getParent();
-                String finalPath = (directoryPath + "\\piece.wav");
-                config.playPieceSound(finalPath.replace("\\dist", ""));
+                config.playPieceSound(config.getFilePathPieceSound());
                 config.setVolume();
                 if (getScore() == 0) {
                     setScore(10);

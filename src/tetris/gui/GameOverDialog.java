@@ -24,6 +24,7 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import tetris.gui.GameOverDialog;
 import tetris.gui.GraphicsTetrisDialog;
 import tetris.gui.MainApp;
+import tetris.lib.utils.Configurations;
 import tetris.lib.utils.GlobalVariables;
 
 /*
@@ -37,6 +38,7 @@ import tetris.lib.utils.GlobalVariables;
 public class GameOverDialog extends javax.swing.JFrame {
 
     private boolean disposed;
+    private Configurations config = new Configurations();
 
     /**
      * Creates new form GameOverDialogs
@@ -44,17 +46,10 @@ public class GameOverDialog extends javax.swing.JFrame {
     public GameOverDialog() {
         initComponents();
         JLabel background;
-setLayout(null);
-        String userDirectory = FileSystems.getDefault()
-                .getPath("")
-                .toAbsolutePath()
-                .toString();
-           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\gameover.png"); 
-           Path directoryPathImage = fullPathImage.getParent();
-           String finalPathImage = (directoryPathImage + "\\gameover.png");
-           String finalPathIcon = (directoryPathImage + "\\icon.png");
-           setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
-        ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
+        setLayout(null);
+
+        ImageIcon img = new ImageIcon(config.getFilePathGameOverImage());
+        setIconImage(Toolkit.getDefaultToolkit().getImage(config.getFilePathIcon()));
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 330, 244);
         add(background);

@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import tetris.lib.utils.Configurations;
 import tetris.lib.utils.GlobalVariables;
+import tetris.lib.utils.SoundPlayer;
 
 /**
  *
@@ -43,6 +44,7 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 495, 420);
         add(background);
+        
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         config.ReadConfig(config.getCurrentPath());
@@ -149,9 +151,14 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        if (!tetris.isGameOver()) {
+        if (!tetris.isGameOver() && GlobalVariables.tetris == null) {
 
             switch (evt.getKeyCode()) {
+                case KeyEvent.VK_ESCAPE ->{
+                    new PauseDialog(tetris, config).setVisible(true);
+                    SoundPlayer.clip.stop();
+                    tetris.stopGame();
+                }
                 case KeyEvent.VK_UP -> {
                     tetris.rotate();
                 }
@@ -179,7 +186,7 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
                     tetris.moveRight();
             }
 
-        } else {
+        } else if (GlobalVariables.tetris == null){
             dispose();
         }
     }//GEN-LAST:event_formKeyPressed

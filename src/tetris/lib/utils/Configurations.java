@@ -137,6 +137,19 @@ public class Configurations extends SoundPlayer implements Config {
         String finalPathImage = (directoryPathImage + "\\jogo.png");
         return finalPathImage.replace("\\dist", "");
     }
+    public String getFilePathGameOverImage() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\gameover.png");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\gameover.png");
+        return finalPathImage.replace("\\dist", "");
+    }
+    
+    public String getFilePathPauseImage() {
+        Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\pausa.png");
+        Path directoryPathImage = fullPathImage.getParent();
+        String finalPathImage = (directoryPathImage + "\\pausa.png");
+        return finalPathImage.replace("\\dist", "");
+    }
 
     public String getFilePathIcon() {
         Path fullPathImage = Paths.get(getUserDirectory() + "\\src\\tetris\\resources\\icon.png");

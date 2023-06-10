@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import tetris.gui.GraphicsTetrisDialog;
 import tetris.gui.MainApp;
+import tetris.lib.game.TetrisGame;
 /**
  *
  * @author Telmo
@@ -15,6 +16,7 @@ import tetris.gui.MainApp;
 public class GlobalVariables {
     
     public static GraphicsTetrisDialog graphicsTetris;
+    public static TetrisGame tetris;
     public static JLabel jtext;
     public static int currentDifficulty;
     public static int currentScore;
