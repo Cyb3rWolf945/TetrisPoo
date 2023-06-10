@@ -17,6 +17,7 @@ package tetris.lib.pieces;
 
 import java.awt.Color;
 import tetris.lib.blocks.Block;
+import tetris.lib.blocks.Empty;
 
 /**
  * Created on 01/05/2023, 08:20:18
@@ -27,14 +28,13 @@ import tetris.lib.blocks.Block;
 public class PieceI extends Piece {
 
     public static Block[][] I = {
-        {new Block('I', Color.DARK_GRAY), new Block('I',Color.DARK_GRAY),new Block('I', Color.DARK_GRAY),new Block('I', Color.DARK_GRAY)},        
+        {new Block('I', Color.GREEN),new Block('I', Color.GREEN), new Block('I', Color.GREEN), new Block('I', Color.GREEN)}
     };
 
     public PieceI() {
         super(I, 0, 0);
     }
 
-  
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     private static final long serialVersionUID = 202305010820L;
     //:::::::::::::::::::::::::::  Copyright(c) M@nso  2023  :::::::::::::::::::

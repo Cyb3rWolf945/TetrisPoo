@@ -80,7 +80,7 @@ public class BlockMatrix extends JPanel implements Drawable {
      * one empty block
      */
     public BlockMatrix() {
-        this(new Block[][]{{new Empty(new Color(255, 255, 255))}});
+        this(new Block[][]{{new Empty(Color.BLACK)}});
     }
 
     /**

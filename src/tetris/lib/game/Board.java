@@ -42,7 +42,7 @@ public class Board extends BlockMatrix {
     public void draw(Graphics gr, int px, int py, int width, int height) {
         super.draw(gr, px, py, width, height);
         int sizeX = width / getColmuns();
-        int sizeY = height / getLines();       
+        int sizeY = height / getLines();
         current.draw(gr, px + current.getPositionX() * sizeX,
                 py + current.getPositionY() * sizeY,
                 sizeX * current.getColmuns(),
@@ -77,8 +77,8 @@ public class Board extends BlockMatrix {
     public Board(Board b) {
         this(b.matrix, b.current);
     }
-    
-    public Board(int rows, int columns, String a){
+
+    public Board(int rows, int columns, String a) {
         this(rows, columns);
     }
 
@@ -99,7 +99,7 @@ public class Board extends BlockMatrix {
         for (int y = 0; y < matrix.length; y++) {
             for (int x = 0; x < matrix[y].length; x++) {
 
-                matrix[y][x] = new Empty(new Color(255, 255, 255));
+                matrix[y][x] = new Empty(Color.BLACK);
             }
         }
         generateRandomPiece();
@@ -187,31 +187,37 @@ public class Board extends BlockMatrix {
      * @return piece can rotate
      */
     public boolean canRotatePiece() {
-        //clone piece
-        Piece clone = current.getClone();
-        //rotate clone
-        clone.rotate();
-        //piece is outside board
-        if (clone.getPositionX() + clone.getColmuns() > getColmuns()) {
-            return false;
-        }
-        //verify all the block of the clone
-        for (int y = 0; y < clone.getLines(); y++) {
-            for (int x = 0; x < clone.getColmuns(); x++) {
-                //block is empty - continue to next
-                if (clone.getMatrix()[y][x] instanceof Empty) {
-                    continue;
-                }
-                //is in the limits 
-                if (x < getColmuns() && x >= 0 && y < getLines() && y >= 0
-                        //is not empty
-                        && !(matrix[y][x] instanceof Empty)) {
-                    return false; // NOT Ratation avaiable
-                }
+    Piece clone = current.getClone(); // Create a clone of the current piece
+    clone.rotate(); // Rotate the cloned piece
+
+    // Check if the cloned piece is outside the board
+    if (clone.getPositionX() + clone.getColmuns() > getColmuns() ||
+        clone.getPositionY() + clone.getLines() > getLines()) {
+        return false; // Piece is outside the board, rotation not possible
+    }
+
+    // Iterate over each block in the cloned piece
+    for (int y = 0; y < clone.getLines(); y++) {
+        for (int x = 0; x < clone.getColmuns(); x++) {
+            if (clone.getMatrix()[y][x] instanceof Empty) {
+                continue; // Empty block, continue to the next block
+            }
+
+            // Calculate the absolute position of the block on the board
+            int absoluteX = clone.getPositionX() + x;
+            int absoluteY = clone.getPositionY() + y;
+
+            // Check for collisions with other blocks on the board
+            if (absoluteX < 0 || absoluteX >= getColmuns() ||
+                absoluteY < 0 || absoluteY >= getLines() ||
+                !(matrix[absoluteY][absoluteX] instanceof Empty)) {
+                return false; // Collision detected, rotation not possible
             }
         }
-        return true; // Can Rotate
     }
+
+    return true; // No collisions detected, rotation is possible
+}
 
     /**
      * move piece to left
@@ -238,7 +244,7 @@ public class Board extends BlockMatrix {
      */
     public void moveDown() {
         if (canMovePiece(1, 0)) {
-            current.moveDown();            
+            current.moveDown();
             repaint();
         }
     }
