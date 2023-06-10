@@ -41,7 +41,7 @@ public class TetrisGame extends Board {
             case 0 ->
                 timer.schedule(new MoveGame(), 0, 600);
             case 1 ->
-                timer.schedule(new MoveGame(), 0, 400);
+                timer.schedule(new MoveGame(), 0, 300);
             case 2 ->
                 timer.schedule(new MoveGame(), 0, 100);
         }
@@ -55,36 +55,42 @@ public class TetrisGame extends Board {
     }
 
     public boolean isGameOver() {
-        return current.getPositionY() == -0 //esta no top
-                && !canMovePiece(1, 0); //não pode descer
+        return !canMovePiece(1, 0) && (current.getPositionY() == 1 || current.getPositionY() == 0 ||  current.getPositionY() == -1);
 
     }
 
     private class MoveGame extends TimerTask {
-
+    private boolean isRunning = false;
         @Override
         public void run() {
-            if (isGameOver()) {
-                stopGame();
-                openGameOverDialog();
-            } else if (canMovePiece(1, 0)) {
-                moveDown();
-            } else {
-                freezePiece();
-                generateRandomPiece();
-                config.playPieceSound(config.getFilePathPieceSound());
-                config.setVolume();
-                if (getScore() == 0) {
-                    setScore(10);
-                } else {
-                    setScore((int) (getScore() * getDifficultyBonus()));
-                }
-                GlobalVariables.currentScore = getScore();
-                GlobalVariables.jtext.setText(String.valueOf(getScore()));
-            }
+        if (isRunning) {
+            return; // Exit if the previous execution is still in progress
         }
 
+        isRunning = true; // Set the flag to indicate the execution is in progress
+System.out.println(current.getPositionY());
+        if (isGameOver()) {
+            stopGame();
+            openGameOverDialog();
+        } else if (canMovePiece(1, 0)) {
+            moveDown();
+        } else {
+            freezePiece();
+            generateRandomPiece();
+            config.playPieceSound(config.getFilePathPieceSound());
+            config.setVolume();
+            if (getScore() == 0) {
+                setScore(10);
+            } else {
+                setScore((int) (getScore() * getDifficultyBonus()));
+            }
+            GlobalVariables.currentScore = getScore();
+            GlobalVariables.jtext.setText(String.valueOf(getScore()));
+        }
+
+        isRunning = false; // Reset the flag after the execution is completed
     }
+}
 
     private void openGameOverDialog() {
         GlobalVariables.graphicsTetris.dispose();

@@ -114,7 +114,7 @@ public class Board extends BlockMatrix {
         //update the position x of piece to the midle of the board
         this.current.setPositionX(getColmuns() / 2 - current.getColmuns() / 2);
         //top of the board
-        this.current.setPositionY(0);
+        this.current.setPositionY(-1);
         repaint();
     }
 
