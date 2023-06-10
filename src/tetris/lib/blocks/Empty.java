@@ -29,7 +29,7 @@ public class Empty extends Block {
     
     public Empty(Color color) {
         super('.', color);
-        colorPiece = new Color(255, 255, 255, 40);
+        colorPiece = new Color(255, 255, 255, 1);
     }
 
     @Override

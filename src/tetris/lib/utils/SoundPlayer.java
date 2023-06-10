@@ -18,63 +18,88 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author ajose
  */
 public class SoundPlayer {
-    public static Clip clip ;
+
+    public static Clip clip;
+    public static Clip clipSoundPiece;
+    public static Clip clipSoundLine;
     public static FloatControl volumeControl;
     public static float actualVolume;
 
     public void play(String filePath) {
         try {
-           
             File file = new File(filePath);
-             System.out.println("file:");  
-              System.out.println(filePath);  
-
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
-            
             clip = AudioSystem.getClip();
-            System.out.println("clip");  
-              System.out.println(clip);
             clip.open(audioInputStream);
             clip.start();
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-             System.out.println("clip");  
-              System.out.println(clip);
-            
+
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void changeVolumeSlide(float volume){
-            System.out.println(clip + "   Dentro changeVolume");    
-            float linearVolume = volume / 100.0f;
-            float minVolume = volumeControl.getMinimum();
-            float maxVolume = volumeControl.getMaximum();
-            actualVolume = minVolume + (linearVolume * (maxVolume - minVolume));    
-            System.out.println(volumeControl);
-            System.out.println(actualVolume);
+    public void playPieceSound(String filePath) {
+        try {
+            File file = new File(filePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            clipSoundPiece = AudioSystem.getClip();
+            clipSoundPiece.open(audioInputStream);
+            clipSoundPiece.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e.getMessage());
+        }
     }
-    
-    public void setVolume(){
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            volumeControl.setValue(actualVolume);      
-           
+
+    public void playLineSound(String filePath) {
+        try {
+            File file = new File(filePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file);
+            clipSoundLine = AudioSystem.getClip();
+            clipSoundLine.open(audioInputStream);
+            clipSoundLine.start();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            System.out.println(e.getMessage());
+        }
     }
-    
-   
-    public float getVolumeToSlider(){
+
+    public void changeVolumeSlide(float volume) {
+        float linearVolume = volume / 100.0f;
+        float minVolume = volumeControl.getMinimum();
+        float maxVolume = volumeControl.getMaximum();
+        actualVolume = minVolume + (linearVolume * (maxVolume - minVolume));
+        System.out.println(volumeControl);
+        System.out.println(actualVolume);
+    }
+
+    public void setVolume() {
+        
+        
+        volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        volumeControl.setValue(actualVolume);
+        if (clipSoundLine != null ){
+        volumeControl = (FloatControl) clipSoundLine.getControl(FloatControl.Type.MASTER_GAIN);
+        volumeControl.setValue(actualVolume);
+        }
+         if (clipSoundPiece != null ){
+        volumeControl = (FloatControl) clipSoundPiece.getControl(FloatControl.Type.MASTER_GAIN);
+        volumeControl.setValue(actualVolume);
+         }
+    }
+
+    public float getVolumeToSlider() {
         float volumeSlider;
         float minVolume = volumeControl.getMinimum();
         float maxVolume = volumeControl.getMaximum();
         return volumeSlider = ((actualVolume - minVolume) / (maxVolume - minVolume) * 100.0f);
     }
+
     public void stop(Clip c) {
         if (c != null) {
             c.stop();
             c.close();
         }
     }
-
 
     public void pause() {
         if (clip != null && clip.isRunning()) {

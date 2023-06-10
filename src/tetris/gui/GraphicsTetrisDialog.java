@@ -22,6 +22,8 @@ import tetris.lib.utils.GlobalVariables;
  */
 public class GraphicsTetrisDialog extends javax.swing.JFrame {
 
+    private Configurations config = new Configurations();
+
     /**
      * Creates new form GraphicsTetrisDialogs
      */
@@ -38,31 +40,28 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
                 .getPath("")
                 .toAbsolutePath()
                 .toString();
-        
-           Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\jogo.png"); 
-           Path directoryPathImage = fullPathImage.getParent();
-           
-           String finalPathIcon = (directoryPathImage + "\\icon.png");
-           String finalPathImage = (directoryPathImage + "\\jogo.png");
-           setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
+
+        Path fullPathImage = Paths.get(userDirectory + "\\src\\tetris\\resources\\jogo.png");
+        Path directoryPathImage = fullPathImage.getParent();
+
+        String finalPathIcon = (directoryPathImage + "\\icon.png");
+        String finalPathImage = (directoryPathImage + "\\jogo.png");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(finalPathIcon.replace("\\dist", "")));
         ImageIcon img = new ImageIcon(finalPathImage.replace("\\dist", ""));
-        
+
         background = new JLabel("", img, JLabel.CENTER);
         background.setBounds(0, 0, 495, 420);
         add(background);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Configurations config = new Configurations() {
-        };
         config.ReadConfig(config.getCurrentPath());
         tetris.resize(config.getLines(), config.getCols());
         tetris.generateRandomPiece();
         tetris.startGame(config.getDifficulty());
-       
+
         GlobalVariables.jtext = ScoreValue;
         setFocusable(true);
         requestFocus();
-        
 
     }
 
@@ -109,7 +108,7 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
         );
         tetrisLayout.setVerticalGroup(
             tetrisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
+            .addGap(0, 389, Short.MAX_VALUE)
         );
 
         ScoreValue.setText("0");
@@ -139,20 +138,20 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(102, 102, 102)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(tetris, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(tetris, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(tetris, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,6 +169,16 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
                     if (!tetris.canMovePiece(1, 0)) {
                         tetris.freezePiece();
                         tetris.deleteFullLines();
+                        String userDirectory = FileSystems.getDefault()
+                                .getPath("")
+                                .toAbsolutePath()
+                                .toString();
+                        Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\piece.wav");
+
+                        Path directoryPath = fullPath.getParent();
+                        String finalPath = (directoryPath + "\\piece.wav");
+                        config.playPieceSound(finalPath.replace("\\dist", ""));
+                        config.setVolume();
                         tetris.generateRandomPiece();
                         if (tetris.getScore() == 0) {
                             tetris.setScore((int) (tetris.getScore() + 10));
@@ -197,15 +206,15 @@ public class GraphicsTetrisDialog extends javax.swing.JFrame {
         requestFocus();    }//GEN-LAST:event_formMouseClicked
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-         if (!tetris.isGameOver()) {
+        if (!tetris.isGameOver()) {
             dispose();
             tetris.stopGame();
             new MainApp().setVisible(true);
 
         } else {
-        
+
         }
-         
+
     }//GEN-LAST:event_formWindowClosed
 
     /**

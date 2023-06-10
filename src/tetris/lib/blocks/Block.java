@@ -37,11 +37,13 @@ public class Block extends JComponent implements Drawable{
     public void draw(Graphics gr, int px, int py, int width, int height) {
     //color of fill
         gr.setColor(myColor);
+        
         //fill block
         gr.fill3DRect(px, py, width, height,true);
-     
+        gr.setColor(myColor);
+        gr.drawRect(px, py, width, height);
         //color of line
-        gr.setColor(Color.BLACK);
+        gr.setColor(new Color(255, 255, 255, 0));
         //draw line
         gr.draw3DRect(px, py, width, height,true);
     }
@@ -69,7 +71,7 @@ public class Block extends JComponent implements Drawable{
      }
     
     public Block(char ch) {
-        this(ch, Color.GREEN);
+        this(ch, Color.WHITE );
     }
 
     public Block(Block b) {

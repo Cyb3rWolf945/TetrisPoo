@@ -5,6 +5,9 @@
 package tetris.lib.game;
 
 import java.awt.Color;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Timer;
 import java.util.TimerTask;
 import tetris.gui.Configs;
@@ -12,6 +15,8 @@ import tetris.gui.GameOverDialog;
 import tetris.gui.GraphicsTetrisDialog;
 import tetris.lib.utils.GlobalVariables;
 import tetris.lib.blocks.Empty;
+import tetris.lib.utils.Configurations;
+import tetris.lib.utils.SoundPlayer;
 
 /**
  *
@@ -21,9 +26,15 @@ public class TetrisGame extends Board {
 
     Timer timer;
     private int Score = 0;
+    private String userDirectory = FileSystems.getDefault()
+            .getPath("")
+            .toAbsolutePath()
+            .toString();
+    private Configurations config = new Configurations();
 
     public TetrisGame() {
         super();
+
     }
 
     public void startGame(int diff) {
@@ -62,13 +73,18 @@ public class TetrisGame extends Board {
             } else {
                 freezePiece();
                 generateRandomPiece();
-                if (getScore() == 0){
-                setScore(10);
-                }else{
-                setScore((int) (getScore() * getDifficultyBonus()));
+                Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\piece.wav");
+                Path directoryPath = fullPath.getParent();
+                String finalPath = (directoryPath + "\\piece.wav");
+                config.playPieceSound(finalPath.replace("\\dist", ""));
+                config.setVolume();
+                if (getScore() == 0) {
+                    setScore(10);
+                } else {
+                    setScore((int) (getScore() * getDifficultyBonus()));
                 }
                 GlobalVariables.currentScore = getScore();
-                 GlobalVariables.jtext.setText(String.valueOf(getScore()));
+                GlobalVariables.jtext.setText(String.valueOf(getScore()));
             }
         }
 
@@ -93,9 +109,12 @@ public class TetrisGame extends Board {
     public float getDifficultyBonus() {
         float bonus = 0;
         switch (GlobalVariables.currentDifficulty) {
-            case 0 -> bonus = (float) 1.25;
-            case 1 -> bonus = (float) 1.5;
-            case 2 -> bonus = (float) 1.65;
+            case 0 ->
+                bonus = (float) 1.25;
+            case 1 ->
+                bonus = (float) 1.5;
+            case 2 ->
+                bonus = (float) 1.65;
         }
         return bonus;
     }
@@ -110,19 +129,29 @@ public class TetrisGame extends Board {
         }
         //put an empty line in the first line
         for (int x = 0; x < matrix[0].length; x++) {
-            matrix[0][x] = new Empty(new Color(255, 255, 255));
+            matrix[0][x] = new Empty(Color.BLACK);
         }
         this.Score += 100;
     }
 
     public void deleteFullLines() {
+        boolean isFull = false;
         //iterate lines from bottom
         for (int y = matrix.length - 1; y > 0; y--) {
-            //verify if line is full
             while (isLineFull(y)) {
                 //delete line
                 deleteLine(y);
+                isFull = true;
+
             }
+        }
+        if (isFull) {
+            Path fullPath = Paths.get(userDirectory + "\\src\\tetris\\resources\\deletedLine.wav");
+            Path directoryPath = fullPath.getParent();
+            String finalPath = (directoryPath + "\\deletedLine.wav");
+
+            config.playLineSound(finalPath.replace("\\dist", ""));
+            config.setVolume();
         }
     }
 

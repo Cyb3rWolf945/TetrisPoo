@@ -53,7 +53,10 @@ public class BlockMatrix extends JPanel implements Drawable {
             for (int x = 0; x < getColmuns(); x++) {
                 matrix[y][x].draw(gr, px + x * sizeX, py + y * sizeY, sizeX, sizeY);
             }
+            
+            
         }
+        
     }
 
     //acessible by inheritance  
