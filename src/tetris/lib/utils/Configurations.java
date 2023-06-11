@@ -102,7 +102,7 @@ public class Configurations extends SoundPlayer implements Config {
                                 }
                                 break;
                             case 2:
-                                if (Integer.parseInt(line) < -80.0 || Integer.parseInt(line) > 6.0205994) {
+                                if (Float.parseFloat(line) < -80.0 ||   Float.parseFloat(line) > 6.0205994) {
                                     this.setSound(-30);
                                 } else {
                                     this.setSound(Float.parseFloat(line));
