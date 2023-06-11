@@ -318,12 +318,24 @@ public class Configs extends javax.swing.JFrame {
 
         // Deselect the RB_Normal radio button
         RB_Normal.setSelected(false);
+        
+        RB_Easy.setSelected(true);
 
         // Set the difficulty level to 0 (corresponding to RB_Easy)
         this.config.setDifficulty(0);
     }//GEN-LAST:event_RB_EasyActionPerformed
 
     private void RB_NormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RB_NormalActionPerformed
+        
+         // Deselect the RB_Easy radio button
+         RB_Easy.setSelected(false);
+
+         RB_Normal.setSelected(true);
+         
+         // Deselect the RB_Hard radio button
+         RB_Hard.setSelected(false);
+        
+     
         // Deselect the RB_Easy radio button
         RB_Easy.setSelected(false);
 
@@ -341,6 +353,7 @@ public class Configs extends javax.swing.JFrame {
         // Deselect the RB_Hard radio button
         RB_Normal.setSelected(false);
 
+        RB_Hard.setSelected(true);
         // Set the difficulty level to 1 (corresponding to RB_Normal)
         this.config.setDifficulty(2);
     }//GEN-LAST:event_RB_HardActionPerformed
