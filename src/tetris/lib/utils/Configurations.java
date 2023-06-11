@@ -80,45 +80,48 @@ public class Configurations extends SoundPlayer implements Config {
     public void ReadConfig(File files) {
         if (files.exists()) {
             int counter = 0;
-            int test = 0;
             try (FileReader fileReader = new FileReader(files); BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 
                 String line;
                 while ((line = bufferedReader.readLine()) != null) {
+                    //System.out.println(getLines() + " loop");
                     try {
                         switch (counter) {
-                            case 0:
+                            case 0 -> {
+
                                 if (Integer.parseInt(line) < 8 || Integer.parseInt(line) > 30) {
-                                    this.setLines(10);
+                                    setLines(10);
                                 } else {
-                                    this.setLines(Integer.parseInt(line));
+                                    setLines(Integer.parseInt(line));
                                 }
-                                break;
-                            case 1:
+                                //System.out.println(this.getLines() + " entrou aqui?");
+                            }
+                            case 1 -> {
                                 if (Integer.parseInt(line) < 8 || Integer.parseInt(line) > 30) {
                                     this.setCols(10);
                                 } else {
-                                    this.setLines(Integer.parseInt(line));
+                                    this.setCols(Integer.parseInt(line));
                                 }
-                                break;
-                            case 2:
-                                if (Float.parseFloat(line) < -80.0 ||   Float.parseFloat(line) > 6.0205994) {
+                            }
+                            case 2 -> {
+                                if (Float.parseFloat(line) < -80.0 || Float.parseFloat(line) > 6.0205994) {
                                     this.setSound(-30);
                                 } else {
                                     this.setSound(Float.parseFloat(line));
                                 }
-                                break;
+                            }
 
-                            case 3:
-                                if (Integer.parseInt(line) <0 || Integer.parseInt(line) > 2) {
+                            case 3 -> {
+                                if (Integer.parseInt(line) < 0 || Integer.parseInt(line) > 2) {
                                     this.setDifficulty(1);
                                 } else {
                                     this.setDifficulty(Integer.parseInt(line));
                                 }
-                                break;
+                            }
                         }
-
+                    //System.out.println(getLines() + " loopfinal");
                     } catch (NumberFormatException e) {
+
                         System.out.println(e.getMessage());
                         this.setLines(10);
                         this.setCols(10);
@@ -143,7 +146,7 @@ public class Configurations extends SoundPlayer implements Config {
 
             WriteConfig(getCurrentPath());
         }
-
+       // System.out.println(this.getLines() + " teste2");
     }
 
     /**
@@ -267,8 +270,9 @@ public class Configurations extends SoundPlayer implements Config {
                 .getPath("")
                 .toAbsolutePath()
                 .toString();
-        File files = new File(userDirectory + "\\config");
 
+        File files = new File(userDirectory + "\\config");
+        //System.out.println(files);
         return files;
     }
 

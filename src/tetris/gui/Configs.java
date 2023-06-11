@@ -35,7 +35,7 @@ public class Configs extends javax.swing.JFrame {
 
         // Read the configuration from a file
         this.config.ReadConfig(config.getCurrentPath());
-
+        // System.out.println(this.config.getLines());
         // Initialize GUI components
         initComponents();
         setSize(405, 395);
