@@ -55,8 +55,8 @@ public class MainApp extends javax.swing.JFrame {
 
         // Set the actual volume for sound
         SoundPlayer.actualVolume = config.getSound();
-        System.out.println(config.getSound());
-        System.out.println(SoundPlayer.actualVolume);
+        // System.out.println(config.getSound());
+        // System.out.println(SoundPlayer.actualVolume);
         // Play Tetris music if the clip is null
         if (SoundPlayer.clip == null) {
             config.play(config.getFilePathSound("Tetris.wav"));
